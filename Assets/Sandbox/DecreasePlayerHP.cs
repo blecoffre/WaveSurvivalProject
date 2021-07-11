@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -7,15 +9,17 @@ using Zenject;
 public class DecreasePlayerHP : MonoBehaviour
 {
     [Inject(Id = "PlayerHPVariable")] private FloatVariable _playerHp = default;
-    [Inject(Id = "PlayerHPChangedEvent")] private GameEvent _playerHPChanged = default;
+    //[Inject(Id = "PlayerHPChangedEvent")] private GameEvent _playerHPChanged = default;
 
-    private void Update()
+    private void Start()
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            _playerHp.RuntimeValue -= 1.0f;
-            _playerHPChanged.Raise();
-        }
+        var clickStream = this.UpdateAsObservable().Where(_ => Mouse.current.leftButton.wasPressedThisFrame).Subscribe(_ => TakeIt());
     }
-    
+
+    private void TakeIt()
+    {
+
+        _playerHp.RuntimeValue -= 1.0f;
+    }
+
 }
