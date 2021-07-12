@@ -12,7 +12,7 @@ public class DisplayPlayerHP : MonoBehaviour
     [Inject(Id = "PlayerHPChangedEvent")] private GameEvent _playerHPChanged = default;
     private TextMeshProUGUI _hpText = default;
     private GameEventListener _listener = default;
-    [Inject(Id = "PlayerHPVariable")] private FloatVariable _playerHp = default;
+    [Inject] private FloatVariable _playerHp = default;
 
     private void Start()
     {

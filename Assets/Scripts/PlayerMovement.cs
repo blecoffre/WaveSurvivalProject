@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -22,11 +23,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        _isGrounded = Physics.CheckSphere(_groundCheck.position, groundDistance, _groundMask);
+        //_isGrounded = Physics.CheckSphere(_groundCheck.position, groundDistance, _groundMask);
 
-        if (_isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
+        //if (_isGrounded && velocity.y < 0)
+        //{
+        //    velocity.y = -2f;
+        //}
+
+        ////float x = Keyboard.current.
     }
 }
