@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "0bb9528c-9d42-47f9-b949-c4b391f3bed6",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -15,7 +15,7 @@
                 },
                 {
                     "name": "Look",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "7c7abaa6-e359-46e7-9c67-4c8923b15a6e",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -30,7 +30,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Spacebar",
+                    "name": "Jump",
                     "type": "Button",
                     "id": "bec760e4-b7a2-439d-bf5e-374d2efeee64",
                     "expectedControlType": "Button",
@@ -266,7 +266,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Spacebar",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
