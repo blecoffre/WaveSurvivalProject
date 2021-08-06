@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour, IAttack
     [SerializeField] private Transform _camera = default;
     [SerializeField] private float _range = 50f;
     [SerializeField] private float _damage = 10f;
+    [Inject] private IntVariable _startAmmo = default;
 
     public void Attack()
     {

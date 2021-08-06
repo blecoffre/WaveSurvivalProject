@@ -5,6 +5,7 @@ public class PlayerInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
+        Container.Bind<FloatVariable>().FromScriptableObjectResource("PlayerData/PlayerHP").WhenInjectedInto(typeof(Player), typeof(DisplayPlayerHP), typeof(DecreasePlayerHP));
         Container.Bind<PlayerController>().FromComponentOn(gameObject).AsSingle();
         Container.Bind<CharacterController>().FromComponentOn(gameObject).AsSingle();
         Container.Bind<PlayerMovement>().FromComponentOn(gameObject).AsSingle();
