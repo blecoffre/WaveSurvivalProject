@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
         _playerControls.Move.performed += ctx => _playerMovement.HorizontalInput = ctx.ReadValue<Vector2>();
         _playerControls.Jump.performed += _ => _playerMovement.OnJumpPressed();
         _playerControls.Look.performed += ctx => _playerLook.Mouse = ctx.ReadValue<Vector2>();
-        _playerControls.Fire.performed += _ => _weapon.Shoot();
+        _playerControls.Fire.performed += _ => _weapon.Attack();
     }
 
     private void OnEnable()

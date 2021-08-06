@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         _enemyHP = Instantiate(_enemyHP); //Create new instance of this scriptable object, made it unique for each enemy
         _enemyHP.RuntimeValue.Where(x => x <= 0).Subscribe(_ => Die()).AddTo(this);
-        Debug.Log(gameObject.name + "HP : " + _enemyHP.RuntimeValue);
     }
 
     private void Die()
