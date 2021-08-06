@@ -11,6 +11,7 @@ public class MoveToTarget : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         TargetPlayer();
+        GetComponent<Animator>().SetBool("Walk Forward", true);
     }
 
     private void TargetPlayer()
