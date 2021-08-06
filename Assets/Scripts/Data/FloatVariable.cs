@@ -1,19 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 [CreateAssetMenu]
 public class FloatVariable : ScriptableObject, ISerializationCallbackReceiver
 {
-    public float InitialeValue;
+    [SerializeField] private float InitialeValue;
 
     [NonSerialized]
-    public float RuntimeValue;
+    public ReactiveProperty<float> RuntimeValue;
 
     public void OnAfterDeserialize()
     {
-        RuntimeValue = InitialeValue;
+        RuntimeValue = new ReactiveProperty<float>(InitialeValue);
     }
 
     public void OnBeforeSerialize() { }

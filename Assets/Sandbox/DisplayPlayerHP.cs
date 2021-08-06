@@ -28,6 +28,6 @@ public class DisplayPlayerHP : MonoBehaviour
 
     private void UpdateText()
     {
-        _hpText?.SetText(_playerHp.RuntimeValue.ToString("F2"));
+        _hpText?.SetText(_playerHp.RuntimeValue.Value.ToString("F2"));
     }
 }

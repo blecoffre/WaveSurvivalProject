@@ -16,6 +16,11 @@ public class Weapon : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(_camera.position, _camera.forward, out hit, _range))
         {
+            IDamageable damageable = hit.transform.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.TakeDamage(_damage);
+            }
             print(hit.collider.name);
         }
     }
