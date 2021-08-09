@@ -7,6 +7,7 @@ using UniRx;
 public class Enemy : MonoBehaviour, IDamageable
 {
     [Inject] private FloatVariable _enemyHP = default;
+    private EnemyAttackComponent _attackComponent = default;
 
     public void TakeDamage(float damage)
     {
@@ -15,12 +16,19 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        _enemyHP = Instantiate(_enemyHP); //Create new instance of this scriptable object, made it unique for each enemy
-        _enemyHP.RuntimeValue.Where(x => x <= 0).Subscribe(_ => Die()).AddTo(this);
+        //_enemyHP = Instantiate(_enemyHP); //Create new instance of this scriptable object, made it unique for each enemy
+        //_enemyHP.RuntimeValue.Where(x => x <= 0).Subscribe(_ => Die()).AddTo(this);
+        _attackComponent = GetComponent<EnemyAttackComponent>();
+        _attackComponent.SetDatas();
     }
 
     private void Die()
     {
         Destroy(gameObject);
+    }
+
+    private void Attack()
+    {
+
     }
 }
