@@ -5,10 +5,10 @@ using Zenject;
 
 public class Player : MonoBehaviour
 {
-    [Inject] private FloatVariable _playerHP = default;
+    //[Inject] private FloatVariable _playerHP = default;
 
     private void Start()
     {
-        Debug.Log(gameObject.name + "HP : " + _playerHP.RuntimeValue);
+        //Debug.Log(gameObject.name + "HP : " + _playerHP.RuntimeValue);
     }
 }
