@@ -9,20 +9,20 @@ using Zenject;
 
 public class DisplayPlayerHP : MonoBehaviour
 {
-    [Inject(Id = "PlayerHPChangedEvent")] private GameEvent _playerHPChanged = default;
-    private TextMeshProUGUI _hpText = default;
-    private GameEventListener _listener = default;
-    [Inject] private FloatVariable _playerHp = default;
+    ////[Inject(Id = "PlayerHPChangedEvent")] private GameEvent _playerHPChanged = default;
+    //private TextMeshProUGUI _hpText = default;
+    //private GameEventListener _listener = default;
+    //[Inject] private FloatVariable _playerHp = default;
 
-    private void Start()
-    {
-        _hpText = GetComponent<TextMeshProUGUI>();
+    //private void Start()
+    //{
+    //    _hpText = GetComponent<TextMeshProUGUI>();
 
-        var clickStream = this.UpdateAsObservable().Where(_ => Mouse.current.leftButton.isPressed).Subscribe(_ => UpdateText());
-    }
+    //    var clickStream = this.UpdateAsObservable().Where(_ => Mouse.current.leftButton.isPressed).Subscribe(_ => UpdateText());
+    //}
 
-    private void UpdateText()
-    {
-        _hpText?.SetText(_playerHp.RuntimeValue.Value.ToString("F2"));
-    }
+    //private void UpdateText()
+    //{
+    //    _hpText?.SetText(_playerHp.RuntimeValue.Value.ToString("F2"));
+    //}
 }
