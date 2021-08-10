@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
 public class PlayerLook : MonoBehaviour
 {
-    private float _sensitivityX = 80f;
-    private float _sensitivityY = 0.5f;
+    private ReactiveProperty<float> _sensitivityX;
+    private ReactiveProperty<float> _sensitivityY;
     public Vector2 Mouse;
-    
 
-    [Inject] private Camera _playerCamera = default;
+    private Camera _playerCamera = default;
     private float _xClamp = 85f;
     private float _xRotation = 0;
+
+    [Inject]
+    private void Init(PlayerLookData data, Camera camera)
+    {
+        _sensitivityX = data.GetXSensitivity();
+        _sensitivityY = data.GetYSensitivity();
+
+        _playerCamera = camera;
+    }
 
     private void Update()
     {
@@ -21,8 +30,8 @@ public class PlayerLook : MonoBehaviour
 
     private void Look()
     {
-        Mouse.x *= _sensitivityX;
-        Mouse.y *= _sensitivityY;
+        Mouse.x *= _sensitivityX.Value;
+        Mouse.y *= _sensitivityY.Value;
 
         transform.Rotate(Vector3.up, Mouse.x * Time.deltaTime);
 
