@@ -18,4 +18,10 @@ public class FloatVariable : ScriptableObject, ISerializationCallbackReceiver
     }
 
     public void OnBeforeSerialize() { }
+
+    public void OverrideInitialValue(float newValue)
+    {
+        InitialeValue = newValue;
+        RuntimeValue = new ReactiveProperty<float>(InitialeValue);
+    }
 }

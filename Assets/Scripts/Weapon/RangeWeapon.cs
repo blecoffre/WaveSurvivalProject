@@ -13,19 +13,19 @@ public class RangeWeapon : Weapon
         Vector3 rayOrigin = _camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
 
         RaycastHit hit;
-        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, _range))
+        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, _data.GetRange().Value))
         {
             IDamageable damageable = hit.transform.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                damageable.TakeDamage(_damage);
+                damageable.TakeDamage(_data.GetDamage().Value);
             }
 
             DrawDebugRay(_end.position, hit.point);
         }
         else
         {
-            DrawDebugRay(_end.position, rayOrigin + (_camera.transform.forward * _range));
+            DrawDebugRay(_end.position, rayOrigin + (_camera.transform.forward * _data.GetRange().Value));
         }
     }
 
