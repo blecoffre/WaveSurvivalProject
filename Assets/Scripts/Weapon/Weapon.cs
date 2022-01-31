@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -8,16 +9,19 @@ public class Weapon : MonoBehaviour, IAttack
     [SerializeField] protected Camera _camera = default;
     [SerializeField] protected WeaponBaseData _data = default;
 
+    private ReactiveProperty<bool> _attackPressed = new ReactiveProperty<bool>(false);
     public virtual void Attack()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, _data.GetRange().Value))
-        {
-            IDamageable damageable = hit.transform.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                damageable.TakeDamage(_data.GetDamage().Value);
-            }
-        }
+        _attackPressed.Value = true;
+    }
+
+    public virtual void AttackLoop()
+    {
+
+    }
+
+    public virtual void StopAttack()
+    {
+        _attackPressed.Value = false;
     }
 }

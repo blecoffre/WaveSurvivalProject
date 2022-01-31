@@ -10,6 +10,7 @@ public class RangeWeapon : Weapon
 
     public override void Attack()
     {
+        Debug.Log("Attack");
         Vector3 rayOrigin = _camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
 
         RaycastHit hit;

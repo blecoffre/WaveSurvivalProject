@@ -31,4 +31,9 @@ public class EnemyAttackComponent : MonoBehaviour, IAttack
     {
         GetComponent<Animator>().SetBool("Bite Attack", true);
     }
+
+    public void StopAttack()
+    {
+        throw new System.NotImplementedException();
+    }
 }
