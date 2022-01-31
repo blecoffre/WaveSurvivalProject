@@ -1,7 +1,11 @@
+using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using Zenject;
+
 
 public class RangeWeapon : Weapon
 {
@@ -9,6 +13,14 @@ public class RangeWeapon : Weapon
     [Inject] private RangeWeaponDrawDebugRay _debugRay;
 
     public override void Attack()
+    {
+        base.Attack();
+
+        float timeBetweenShot = 1 / _data.GetFireRate().Value;
+        Observable.EveryUpdate().Where(_ => _attackPressed.Value == true).ThrottleFirst(TimeSpan.FromMilliseconds(timeBetweenShot)).Subscribe(_ => Shoot());
+    }
+
+    protected void Shoot()
     {
         Debug.Log("Attack");
         Vector3 rayOrigin = _camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
@@ -28,6 +40,11 @@ public class RangeWeapon : Weapon
         {
             DrawDebugRay(_end.position, rayOrigin + (_camera.transform.forward * _data.GetRange().Value));
         }
+    }
+
+    public override void StopAttack()
+    {
+        base.StopAttack();
     }
 
     private void DrawDebugRay(Vector3 startPoint, Vector3 endPoint)
