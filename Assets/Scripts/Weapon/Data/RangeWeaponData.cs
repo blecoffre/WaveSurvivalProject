@@ -12,6 +12,9 @@ public class RangeWeaponData : WeaponBaseData
     [SerializeField] private FloatVariable _remainingAmmo;
     #endregion
 
+    [SerializeField] private FloatVariable _bulletSpread = default;
+    [SerializeField] private SpreadType _spreadType = default;
+
     #region Ammo getter
     public ReactiveProperty<float> GetCurrentMagazine()
     {
@@ -28,6 +31,16 @@ public class RangeWeaponData : WeaponBaseData
         return _remainingAmmo.RuntimeValue;
     }
     #endregion
+
+    public ReactiveProperty<float> GetBulletSpread()
+    {
+        return _bulletSpread.RuntimeValue;
+    }
+
+    public SpreadType GetCurrentSpreadType()
+    {
+        return _spreadType;
+    }
 
     protected override void Awake()
     {
@@ -54,6 +67,8 @@ public class RangeWeaponData : WeaponBaseData
         CreateDataAndBind("CurrentAmmoInMag", path, folderName, out _currentAmmoInMagazine);
         CreateDataAndBind("MagCapacity", path, folderName, out _magazineCapacity);
         CreateDataAndBind("RemainingAmmo", path, folderName, out _remainingAmmo);
+
+        CreateDataAndBind("BulletSpread", path, folderName, out _bulletSpread);
     }
 #endif
 }

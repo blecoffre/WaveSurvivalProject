@@ -19,3 +19,5 @@ MonoBehaviour:
   _currentAmmoInMagazine: {fileID: 11400000, guid: 2e761635c8f29dc4f8dea76007dade04, type: 2}
   _magazineCapacity: {fileID: 11400000, guid: 0e982d0e30855ca49b15b63b1cd65030, type: 2}
   _remainingAmmo: {fileID: 11400000, guid: b3852f8263117ce419c98905449391b1, type: 2}
+  _bulletSpread: {fileID: 11400000, guid: 8419ba414fbe13b4c8286362d9111a01, type: 2}
+  _spreadType: 0
