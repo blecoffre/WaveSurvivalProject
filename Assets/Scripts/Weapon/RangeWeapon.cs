@@ -13,7 +13,7 @@ public class RangeWeapon : Weapon
 
     private void Start()
     {
-        _data = _data as RangeWeaponData;
+        _rangeData = _data as RangeWeaponData;
     }
 
     [SerializeField] private Transform _end;
