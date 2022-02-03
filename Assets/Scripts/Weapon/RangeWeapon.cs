@@ -14,6 +14,9 @@ public class RangeWeapon : Weapon
     private void Start()
     {
         _rangeData = _data as RangeWeaponData;
+
+        float timeBetweenShot = 1 / _data.GetFireRate().Value;
+        _attackDisposable = Observable.EveryUpdate().Where(_ => _attackPressed.Value == true).ThrottleFirst(TimeSpan.FromMilliseconds(timeBetweenShot)).Subscribe(_ => Shoot());
     }
 
     [SerializeField] private Transform _end;
@@ -22,8 +25,6 @@ public class RangeWeapon : Weapon
     public override void Attack()
     {
         base.Attack();
-        float timeBetweenShot = 1 / _data.GetFireRate().Value;
-        Observable.EveryUpdate().Where(_ => _attackPressed.Value == true).ThrottleFirst(TimeSpan.FromMilliseconds(timeBetweenShot)).Subscribe(_ => Shoot());
     }
 
     protected void Shoot()
