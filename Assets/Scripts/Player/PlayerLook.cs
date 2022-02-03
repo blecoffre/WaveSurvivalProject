@@ -14,6 +14,21 @@ public class PlayerLook : MonoBehaviour
     private float _xClamp = 85f;
     private float _xRotation = 0;
 
+    private bool _lockMovement = false;
+
+    #region Debug Var
+#if UNITY_EDITOR
+    [Inject] private WaveSurvivalProject.DebugActions _debugActions = default;
+#endif
+    #endregion
+
+    private void Start()
+    {
+#if UNITY_EDITOR
+        _debugActions.OpenDebug.performed += _ => _lockMovement = !_lockMovement;
+#endif
+    }
+
     [Inject]
     private void Init(PlayerLookData data, Camera camera)
     {
@@ -25,7 +40,10 @@ public class PlayerLook : MonoBehaviour
 
     private void Update()
     {
-        Look();
+        if (!_lockMovement)
+        {
+            Look();
+        }
     }
 
     private void Look()

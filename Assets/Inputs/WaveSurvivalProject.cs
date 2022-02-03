@@ -809,6 +809,55 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""68a229e7-19fa-4e99-8fa8-ef2f3db84a83"",
+            ""actions"": [
+                {
+                    ""name"": ""OpenDebug"",
+                    ""type"": ""Button"",
+                    ""id"": ""6fdc530a-47c4-4033-a9b3-1bc7beb175a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""Button With One Modifier"",
+                    ""id"": ""6220b0a1-5b86-417d-9016-aa7b57864433"",
+                    ""path"": ""ButtonWithOneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenDebug"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""3349f50a-0ac6-471e-a294-4afa41a16a89"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""OpenDebug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""button"",
+                    ""id"": ""082dc4c6-ac1e-4d80-bd20-5c5ad7055906"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""OpenDebug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -893,6 +942,9 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        // Debug
+        m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+        m_Debug_OpenDebug = m_Debug.FindAction("OpenDebug", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1108,6 +1160,39 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // Debug
+    private readonly InputActionMap m_Debug;
+    private IDebugActions m_DebugActionsCallbackInterface;
+    private readonly InputAction m_Debug_OpenDebug;
+    public struct DebugActions
+    {
+        private @WaveSurvivalProject m_Wrapper;
+        public DebugActions(@WaveSurvivalProject wrapper) { m_Wrapper = wrapper; }
+        public InputAction @OpenDebug => m_Wrapper.m_Debug_OpenDebug;
+        public InputActionMap Get() { return m_Wrapper.m_Debug; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+        public void SetCallbacks(IDebugActions instance)
+        {
+            if (m_Wrapper.m_DebugActionsCallbackInterface != null)
+            {
+                @OpenDebug.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnOpenDebug;
+                @OpenDebug.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnOpenDebug;
+                @OpenDebug.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnOpenDebug;
+            }
+            m_Wrapper.m_DebugActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @OpenDebug.started += instance.OnOpenDebug;
+                @OpenDebug.performed += instance.OnOpenDebug;
+                @OpenDebug.canceled += instance.OnOpenDebug;
+            }
+        }
+    }
+    public DebugActions @Debug => new DebugActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1173,5 +1258,9 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+    }
+    public interface IDebugActions
+    {
+        void OnOpenDebug(InputAction.CallbackContext context);
     }
 }
