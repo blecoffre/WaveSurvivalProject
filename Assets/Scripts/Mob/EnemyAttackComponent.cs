@@ -19,7 +19,7 @@ public class EnemyAttackComponent : MonoBehaviour, IAttack
     {
         _mobTr = transform;
 
-        Observable.EveryUpdate().Where(_ => Vector3.Distance(_mobTr.position, _target.position) <= _attackRange).Subscribe(_ => Attack());
+        Observable.EveryUpdate().Where(_ => Vector3.Distance(_mobTr.position, _target.position) <= _attackRange).Subscribe(_ => Attack()).AddTo(transform);
     }
 
     private void Update()

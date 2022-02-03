@@ -20,6 +20,9 @@ public class MoveToTarget : MonoBehaviour
 
     private void Update()
     {
-        _agent.SetDestination(FindObjectOfType<Player>().transform.position);
+        if (_agent.isActiveAndEnabled)
+        {
+            _agent.SetDestination(FindObjectOfType<Player>().transform.position);
+        }
     }
 }
