@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     [SerializeField] private Transform _feet = default;
     [SerializeField] private LayerMask _groundMask = default;
+    private Rigidbody _rigidbody = default;
 
     private NavMeshAgent _agent = default;
 
@@ -35,12 +36,16 @@ public class Enemy : MonoBehaviour, IDamageable
 
         _agent = GetComponent<NavMeshAgent>();
         _agent.enabled = false;
+
+        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody.isKinematic = false;
     }
 
     private void Update()
     {
         _isGrounded = Physics.CheckSphere(_feet.position, 0.1f, _groundMask);
         _agent.enabled = _isGrounded;
+        _rigidbody.isKinematic = _isGrounded;
 
     }
 
