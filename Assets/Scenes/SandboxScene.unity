@@ -547,6 +547,23 @@ Transform:
   m_Father: {fileID: 979927594}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &276909199 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1301338880282656, guid: aceeed3aafacea940a96fea2c9c476eb, type: 3}
+  m_PrefabInstance: {fileID: 348334302}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &276909200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276909199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff0858ac762e2a1419c0ee031072c5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &289557327
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -767,6 +784,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 389316714}
     m_Modifications:
+    - target: {fileID: 348334306, guid: aceeed3aafacea940a96fea2c9c476eb, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1301338880282656, guid: aceeed3aafacea940a96fea2c9c476eb, type: 3}
       propertyPath: m_Name
       value: Mob (1)
