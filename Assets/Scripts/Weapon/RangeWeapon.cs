@@ -9,18 +9,34 @@ using Zenject;
 
 public class RangeWeapon : Weapon
 {
+    [SerializeField] private Transform _end;
+    [Inject] private RangeWeaponDrawDebugRay _debugRay;
+
     private RangeWeaponData _rangeData;
 
-    private void Start()
+    #region Debug
+    private bool _showDebugRays = false;
+    #endregion
+
+    protected override void Start()
     {
+        base.Start();
         _rangeData = _data as RangeWeaponData;
 
         float timeBetweenShot = 1 / _data.GetFireRate().Value;
         _attackDisposable = Observable.EveryUpdate().Where(_ => _attackPressed.Value == true).ThrottleFirst(TimeSpan.FromMilliseconds(timeBetweenShot)).Subscribe(_ => Shoot());
+
+#if UNITY_EDITOR
+        DebugBinding();
+#endif
     }
 
-    [SerializeField] private Transform _end;
-    [Inject] private RangeWeaponDrawDebugRay _debugRay;
+#if UNITY_EDITOR
+    private void DebugBinding()
+    {
+        _debug.ShowRays.Subscribe(x => _showDebugRays = x);
+    }
+#endif
 
     public override void Attack()
     {
@@ -52,11 +68,15 @@ public class RangeWeapon : Weapon
                 damageable.TakeDamage(_data.GetDamage().Value);
             }
 
+#if UNITY_EDITOR
             DrawDebugRay(_end.position, hit.point);
+#endif
         }
         else
         {
+#if UNITY_EDITOR
             DrawDebugRay(_end.position, rayOrigin + (forwardDir * _data.GetRange().Value));
+#endif
         }
     }
 
@@ -67,9 +87,12 @@ public class RangeWeapon : Weapon
 
     private void DrawDebugRay(Vector3 startPoint, Vector3 endPoint)
     {
-        RangeWeaponDrawDebugRay line = Instantiate(_debugRay);
-        line.DrawRay(new Vector3[] { startPoint, endPoint }, 0.1f);
-        //Debug.DrawRay(_camera.transform.position, _camera.transform.forward * _range, Color.blue, 2.5f);
+        if (_showDebugRays)
+        {
+            RangeWeaponDrawDebugRay line = Instantiate(_debugRay);
+            line.DrawRay(new Vector3[] { startPoint, endPoint }, 0.1f);
+            //Debug.DrawRay(_camera.transform.position, _camera.transform.forward * _range, Color.blue, 2.5f);
+        }
     }
 
     private Vector3 AngleDeviationMethod()

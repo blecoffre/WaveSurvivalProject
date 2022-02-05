@@ -12,6 +12,9 @@ public class DebugInstaller : MonoInstaller
         Container.Bind<WaveSurvivalProject.DebugActions>().FromInstance(_controls.Debug).AsSingle();
 
         Container.Bind<RangeWeaponDrawDebugRay>().FromInstance(_rangeWeaponDebugRay).AsSingle().WhenInjectedInto<RangeWeapon>();
+
+        Container.Bind<DebugController>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<DebugWindow>().FromComponentInHierarchy().AsSingle();
     }
 
     [Inject]

@@ -816,7 +816,7 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""OpenDebug"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""6fdc530a-47c4-4033-a9b3-1bc7beb175a7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -849,7 +849,7 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
                 {
                     ""name"": ""button"",
                     ""id"": ""082dc4c6-ac1e-4d80-bd20-5c5ad7055906"",
-                    ""path"": ""<Keyboard>/d"",
+                    ""path"": ""<Keyboard>/z"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",

@@ -18,5 +18,11 @@ public class GameMainInstaller : MonoInstaller
     private void InitializeInputs()
     {
         _controls = new WaveSurvivalProject();
+        _controls.UI.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _controls.UI.Disable();
     }
 }
