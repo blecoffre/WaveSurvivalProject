@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -37,10 +38,12 @@ public class LocomotionSimpleAgent : MonoBehaviour
 
         bool shouldMove = velocity.magnitude > 0.5f && agent.remainingDistance > agent.radius;
 
-        if (dx <= -0.0005)
+        if (dx >= -0.001 && dx <= 0.001f)
         {
             Mathf.Clamp(velocity.x, 0, 10);
         }
+
+        DXMoy(dx);
 
         // Update animation parameters
         anim.SetBool("move", shouldMove);
@@ -58,6 +61,30 @@ public class LocomotionSimpleAgent : MonoBehaviour
         // Pull character towards agent
         if (worldDeltaPosition.magnitude > agent.radius)
             transform.position = agent.nextPosition - 0.9f * worldDeltaPosition;
+    }
+
+    private List<float> dxMoy = new List<float>();
+    private void DXMoy(float newVal)
+    {
+        if(dxMoy != null)
+        {
+            dxMoy.Add(newVal);
+            if(dxMoy.Count > 50)
+            {
+                dxMoy.RemoveAt(0);
+            }
+        }
+
+        float moy = 0;
+
+        for (int i = 0; i < dxMoy.Count; i++)
+        {
+            moy += dxMoy[i];
+        }
+
+        moy = moy / dxMoy.Count;
+
+        Debug.Log(moy);
     }
 
     void OnAnimatorMove()
