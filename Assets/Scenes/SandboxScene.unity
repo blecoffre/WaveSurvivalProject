@@ -784,6 +784,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 389316714}
     m_Modifications:
+    - target: {fileID: 348334305, guid: aceeed3aafacea940a96fea2c9c476eb, type: 3}
+      propertyPath: m_Speed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 348334305, guid: aceeed3aafacea940a96fea2c9c476eb, type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 348334305, guid: aceeed3aafacea940a96fea2c9c476eb, type: 3}
+      propertyPath: m_Acceleration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 348334305, guid: aceeed3aafacea940a96fea2c9c476eb, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 348334305, guid: aceeed3aafacea940a96fea2c9c476eb, type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 348334306, guid: aceeed3aafacea940a96fea2c9c476eb, type: 3}
       propertyPath: m_Enabled
       value: 1
