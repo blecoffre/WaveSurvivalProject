@@ -19,6 +19,7 @@ public class RangeWeapon : Weapon, IWeapon, IReloadable
 
     #region Debug
     private bool _showDebugRays = false;
+    private bool _unlimitedAmmos = false;
     #endregion
 
     protected override void Start()
@@ -42,6 +43,7 @@ public class RangeWeapon : Weapon, IWeapon, IReloadable
     private void DebugBinding()
     {
         _debug.ShowRays.Subscribe(x => _showDebugRays = x);
+        _debug.UnlimitedAmmos.Subscribe(x => _unlimitedAmmos = x);
     }
 #endif
 
@@ -125,11 +127,23 @@ public class RangeWeapon : Weapon, IWeapon, IReloadable
 
     private bool HasEnoughAmmo()
     {
+#if UNITY_EDITOR
+        if (_unlimitedAmmos)
+        {
+            return true;
+        }
+#endif
         return _rangeData.GetCurrentMagazine().Value >= _rangeData.GetAmmoConsumptionPerAttack().Value;
     }
 
     private void ConsumeAmmo()
     {
+#if UNITY_EDITOR
+        if (_unlimitedAmmos)
+        {
+            return;
+        }
+#endif
         int newCurrentAmmoCount = _rangeData.GetCurrentMagazine().Value - _rangeData.GetAmmoConsumptionPerAttack().Value;
         _rangeData.SetCurrentMagazine(newCurrentAmmoCount);
     }
@@ -146,6 +160,12 @@ public class RangeWeapon : Weapon, IWeapon, IReloadable
 
     public void Reload()
     {
+#if UNITY_EDITOR
+        if (_unlimitedAmmos)
+        {
+            return;
+        }
+#endif
         if (HasAmmoToReload())
         {
             int missingAmmo = _rangeData.GetMagazineCapacity().Value - _rangeData.GetCurrentMagazine().Value;
