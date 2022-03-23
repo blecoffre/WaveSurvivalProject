@@ -17,4 +17,10 @@ public class IntVariable : ScriptableObject, ISerializationCallbackReceiver
     }
 
     public void OnBeforeSerialize() { }
+
+    public void OverrideInitialValue(int newValue)
+    {
+        InitialeValue = newValue;
+        RuntimeValue = new ReactiveProperty<int>(InitialeValue);
+    }
 }

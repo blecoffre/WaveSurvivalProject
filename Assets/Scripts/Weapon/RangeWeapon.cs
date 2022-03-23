@@ -7,12 +7,15 @@ using UnityEngine;
 using Zenject;
 
 
-public class RangeWeapon : Weapon
+public class RangeWeapon : Weapon, IWeapon, IReloadable
 {
     [SerializeField] private Transform _end;
     [Inject] private RangeWeaponDrawDebugRay _debugRay;
 
     private RangeWeaponData _rangeData;
+
+    public int CurrentAmmo => _rangeData.GetCurrentMagazine().Value;
+    public int RemainingAmmo => _rangeData.GetRemainingAmmo().Value;
 
     #region Debug
     private bool _showDebugRays = false;
@@ -24,7 +27,11 @@ public class RangeWeapon : Weapon
         _rangeData = _data as RangeWeaponData;
 
         float timeBetweenShot = 1 / _data.GetFireRate().Value;
-        _attackDisposable = Observable.EveryUpdate().Where(_ => _attackPressed.Value == true).ThrottleFirst(TimeSpan.FromMilliseconds(timeBetweenShot)).Subscribe(_ => Shoot());
+        _attackDisposable = Observable.EveryUpdate().Where(_ => _attackPressed.Value == true && HasEnoughAmmo()).ThrottleFirst(TimeSpan.FromMilliseconds(timeBetweenShot)).Subscribe(_ =>
+        {
+            Shoot();
+            ConsumeAmmo();
+        });
 
 #if UNITY_EDITOR
         DebugBinding();
@@ -62,7 +69,7 @@ public class RangeWeapon : Weapon
         RaycastHit hit;
         if (Physics.Raycast(_camera.transform.position, forwardDir, out hit, _data.GetRange().Value))
         {
-            IDamageable damageable = hit.transform.GetComponent<IDamageable>();
+            IDamageable<float> damageable = hit.transform.GetComponent<IDamageable<float>>();
             if (damageable != null)
             {
                 damageable.TakeDamage(_data.GetDamage().Value);
@@ -114,5 +121,45 @@ public class RangeWeapon : Weapon
         Vector3 forwardVector = _camera.transform.rotation * rot * Vector3.forward;
 
         return forwardVector;
+    }
+
+    private bool HasEnoughAmmo()
+    {
+        return _rangeData.GetCurrentMagazine().Value >= _rangeData.GetAmmoConsumptionPerAttack().Value;
+    }
+
+    private void ConsumeAmmo()
+    {
+        int newCurrentAmmoCount = _rangeData.GetCurrentMagazine().Value - _rangeData.GetAmmoConsumptionPerAttack().Value;
+        _rangeData.SetCurrentMagazine(newCurrentAmmoCount);
+    }
+
+    public IObservable<int> AmmoConsumed()
+    {
+        return _rangeData.GetCurrentMagazine().ToReadOnlyReactiveProperty();
+    }
+
+    private bool HasAmmoToReload()
+    {
+        return _rangeData.GetRemainingAmmo().Value > 0;
+    }
+
+    public void Reload()
+    {
+        if (HasAmmoToReload())
+        {
+            int missingAmmo = _rangeData.GetMagazineCapacity().Value - _rangeData.GetCurrentMagazine().Value;
+
+            if(_rangeData.GetRemainingAmmo().Value >= missingAmmo)
+            {
+                _rangeData.SetRemainingAmmo(_rangeData.GetRemainingAmmo().Value - missingAmmo);
+                _rangeData.SetCurrentMagazine(_rangeData.GetCurrentMagazine().Value + missingAmmo);
+            }
+            else
+            {
+                _rangeData.SetRemainingAmmo(0);
+                _rangeData.SetCurrentMagazine(_rangeData.GetCurrentMagazine().Value + _rangeData.GetRemainingAmmo().Value);
+            }
+        }
     }
 }

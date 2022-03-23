@@ -16,6 +16,9 @@ public class PlayerInstaller : MonoInstaller
         Container.Bind<PlayerLookData>().FromScriptableObjectResource("PlayerData/PlayerLook/PlayerLookData").WhenInjectedInto<PlayerLook>();
 
         Container.Bind<FloatVariable>().FromScriptableObjectResource("PlayerData/PlayerHP").WhenInjectedInto(typeof(Player));
-        Container.Bind<Weapon>().FromComponentInChildren().AsSingle();
+        Container.Bind<PlayerWeapon>().FromComponentInChildren().AsSingle();
+        Container.Bind<PlayerWeaponHUD>().FromComponentInHierarchy().AsSingle();
+
+        Container.BindFactory<UnityEngine.Object, Weapon, WeaponFactory>().FromFactory<PrefabFactory<Weapon>>();
     }
 }

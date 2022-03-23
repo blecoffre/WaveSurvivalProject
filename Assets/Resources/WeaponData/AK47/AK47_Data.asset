@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155b3193cea0d9847b217aec466615eb, type: 3}
   m_Name: AK47_Data
   m_EditorClassIdentifier: 
-  _range: {fileID: 11400000, guid: 6f77dda7e1a73af4e8af75376751dbf3, type: 2}
-  _damage: {fileID: 11400000, guid: be2b201d878dc97449875cc9df906547, type: 2}
-  _fireRate: {fileID: 11400000, guid: 8af6e25244b22d3428a1ef12333ed2a3, type: 2}
+  _range: {fileID: 11400000, guid: 0c5cd6650c50f9841b61fac89dc57ef6, type: 2}
+  _damage: {fileID: 11400000, guid: d22b57eb4698e584e999408ea87b12c3, type: 2}
+  _fireRate: {fileID: 11400000, guid: 4f02495cfda45004ba304241b9e873a4, type: 2}
   _skins: []
-  _currentAmmoInMagazine: {fileID: 11400000, guid: 2e761635c8f29dc4f8dea76007dade04, type: 2}
-  _magazineCapacity: {fileID: 11400000, guid: 0e982d0e30855ca49b15b63b1cd65030, type: 2}
-  _remainingAmmo: {fileID: 11400000, guid: b3852f8263117ce419c98905449391b1, type: 2}
-  _bulletSpread: {fileID: 11400000, guid: 8419ba414fbe13b4c8286362d9111a01, type: 2}
+  _currentAmmoInMagazine: {fileID: 11400000, guid: 2166e2a746d93594bbbf9fdbb17999d4, type: 2}
+  _magazineCapacity: {fileID: 11400000, guid: 9280f3b6c0f981746a9f6451c0d3c1a3, type: 2}
+  _remainingAmmo: {fileID: 11400000, guid: 3c5b634cc6b6803469636569edd0312a, type: 2}
+  _ammoConsumptionPerAttack: {fileID: 11400000, guid: af11afaf8da7a574c9aa6a5c527a10b0, type: 2}
+  _bulletSpread: {fileID: 11400000, guid: 1c0bd0c5b6df2604fb79b3afd12249f0, type: 2}
   _spreadType: 1

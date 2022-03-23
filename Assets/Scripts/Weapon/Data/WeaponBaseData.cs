@@ -101,6 +101,28 @@ public class WeaponBaseData : ScriptableObject
         
         dataToSet = asset;
     }
+
+    protected void CreateDataAndBind(string dataName, string path, string folderName, out IntVariable dataToSet)
+    {
+        IntVariable asset = default;
+        string assetName = string.Format("{0}_{1}", folderName, dataName);
+        string assetPath = string.Format("{0}/{1}.asset", path, assetName);
+
+        string[] ids = AssetDatabase.FindAssets(dataName, new[] { path });
+        if (ids.Length == 0)
+        {
+            asset = CreateInstance<IntVariable>();
+
+            AssetDatabase.CreateAsset(asset, assetPath);
+            AssetDatabase.SaveAssets();
+        }
+        else
+        {
+            asset = AssetDatabase.LoadAssetAtPath<IntVariable>(assetPath);
+        }
+
+        dataToSet = asset;
+    }
     #endregion
 #endif
 }

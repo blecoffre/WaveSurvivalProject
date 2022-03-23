@@ -5,7 +5,7 @@ using Zenject;
 using UniRx;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour, IDamageable<float>
 {
     [Inject] private FloatVariable _enemyHP = default;
     private EnemyAttackComponent _attackComponent = default;

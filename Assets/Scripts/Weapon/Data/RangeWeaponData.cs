@@ -7,28 +7,56 @@ using UnityEngine;
 public class RangeWeaponData : WeaponBaseData
 {
     #region Ammo
-    [SerializeField] private FloatVariable _currentAmmoInMagazine;
-    [SerializeField] private FloatVariable _magazineCapacity;
-    [SerializeField] private FloatVariable _remainingAmmo;
+    [SerializeField] private IntVariable _currentAmmoInMagazine;
+    [SerializeField] private IntVariable _magazineCapacity;
+    [SerializeField] private IntVariable _remainingAmmo;
+    [SerializeField] private IntVariable _ammoConsumptionPerAttack;
     #endregion
 
     [SerializeField] private FloatVariable _bulletSpread = default;
     [SerializeField] private SpreadType _spreadType = default;
 
     #region Ammo getter
-    public ReactiveProperty<float> GetCurrentMagazine()
+    public ReactiveProperty<int> GetCurrentMagazine()
     {
         return _currentAmmoInMagazine.RuntimeValue;
     }
 
-    public ReactiveProperty<float> GetMagazineCapacity()
+    public ReactiveProperty<int> GetMagazineCapacity()
     {
         return _magazineCapacity.RuntimeValue;
     }
 
-    public ReactiveProperty<float> GetRemainingAmmo()
+    public ReactiveProperty<int> GetRemainingAmmo()
     {
         return _remainingAmmo.RuntimeValue;
+    }
+
+    public ReactiveProperty<int> GetAmmoConsumptionPerAttack()
+    {
+        return _ammoConsumptionPerAttack.RuntimeValue;
+    }
+    #endregion
+
+    #region Ammo setter
+    public void SetCurrentMagazine(int newValue)
+    {
+        _currentAmmoInMagazine.RuntimeValue.Value = newValue;
+    }
+
+    public void SetMagazineCapacity(int newValue)
+    {
+        _magazineCapacity.RuntimeValue.Value = newValue;
+    }
+
+    public void SetRemainingAmmo(int newValue)
+    {
+        _remainingAmmo.RuntimeValue.Value = newValue;
+    }
+
+    public void SetAmmoConsumptionPerAttack(int newValue)
+    {
+        _ammoConsumptionPerAttack.RuntimeValue.Value = newValue;
     }
     #endregion
 
@@ -67,6 +95,7 @@ public class RangeWeaponData : WeaponBaseData
         CreateDataAndBind("CurrentAmmoInMag", path, folderName, out _currentAmmoInMagazine);
         CreateDataAndBind("MagCapacity", path, folderName, out _magazineCapacity);
         CreateDataAndBind("RemainingAmmo", path, folderName, out _remainingAmmo);
+        CreateDataAndBind("AmmoConsumption", path, folderName, out _ammoConsumptionPerAttack);
 
         CreateDataAndBind("BulletSpread", path, folderName, out _bulletSpread);
     }

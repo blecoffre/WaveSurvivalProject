@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public interface IDamageable
+public interface IDamageable<T>
 {
-    public void TakeDamage(float damage);
+    public void TakeDamage(T damageTaken);
 }
