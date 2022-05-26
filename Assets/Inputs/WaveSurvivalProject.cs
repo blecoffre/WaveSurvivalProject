@@ -855,9 +855,9 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""modifier"",
+                    ""name"": ""Modifier"",
                     ""id"": ""3349f50a-0ac6-471e-a294-4afa41a16a89"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -866,9 +866,9 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""button"",
+                    ""name"": ""Button"",
                     ""id"": ""082dc4c6-ac1e-4d80-bd20-5c5ad7055906"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""path"": ""<Keyboard>/leftAlt"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
