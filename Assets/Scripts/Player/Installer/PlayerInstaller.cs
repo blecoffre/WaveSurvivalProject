@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using Zenject;
 
 public class PlayerInstaller : MonoInstaller
@@ -18,7 +19,10 @@ public class PlayerInstaller : MonoInstaller
         Container.Bind<FloatVariable>().FromScriptableObjectResource("PlayerData/PlayerHP").WhenInjectedInto(typeof(Player));
         Container.Bind<PlayerWeapon>().FromComponentInChildren().AsSingle();
         Container.Bind<PlayerWeaponHUD>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<PlayerPortraitInfos>().FromComponentInHierarchy().AsSingle();
 
         Container.BindFactory<UnityEngine.Object, Weapon, WeaponFactory>().FromFactory<PrefabFactory<Weapon>>();
+
+        Container.Bind<RigBuilder>().FromComponentInHierarchy().AsSingle();
     }
 }

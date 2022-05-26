@@ -9,5 +9,6 @@ public class PlayerInventoryInstaller : MonoInstaller
     {
         Container.Bind<StarterKit>().FromInstance(_playerStarterKit).AsSingle();
         Container.Bind<PlayerInventory>().FromComponentInChildren().AsSingle();
+        Container.Bind<PlayerInventoryFeedback>().FromComponentInChildren().AsSingle();
     }
 }

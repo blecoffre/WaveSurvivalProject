@@ -21,6 +21,9 @@ public class DebugController : MonoBehaviour
     private ReactiveProperty<bool> _windowIsVisible = new ReactiveProperty<bool>(false);
     public IObservable<bool> WindowIsVisible => _windowIsVisible.ToReadOnlyReactiveProperty<bool>();
 
+    private ReactiveProperty<int> _addMoneyToPlayer = new ReactiveProperty<int>(0);
+    public IObservable<int> AddMoneyToPlayer => new ReadOnlyReactiveProperty<int>(_addMoneyToPlayer, false);
+
 
     private void Awake()
     {
@@ -49,7 +52,6 @@ public class DebugController : MonoBehaviour
 
         _debugWindowInstance.ShowRays.Subscribe(x => _showRays.Value = x);
         _debugWindowInstance.UnlimitedAmmos.Subscribe(x => _unlimitedAmmos.Value = x);
-    }
-
-    
+        _debugWindowInstance.AddMoneyToPlayer.Subscribe(x => _addMoneyToPlayer.SetValueAndForceNotify(x));
+    } 
 }

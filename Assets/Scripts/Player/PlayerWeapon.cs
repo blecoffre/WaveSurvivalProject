@@ -3,22 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using UniRx;
+using UnityEngine.Animations.Rigging;
 
 public class PlayerWeapon : MonoBehaviour
 {
     private Weapon _currentWeapon = default;
     [Inject] private PlayerWeaponHUD _hud = default;
 
+    [SerializeField] private Animator _animator = default;
+
     public void SetCurrentWeapon(Weapon weapon)
     {
-        _currentWeapon = weapon;
-
-        if (_currentWeapon is RangeWeapon)
+        if(weapon != null)
         {
-            var rangeW = _currentWeapon as RangeWeapon;
-            rangeW.AmmoConsumed().Subscribe(_ => _hud.UpdateAmmo(rangeW.CurrentAmmo, rangeW.RemainingAmmo));
-        }
-        SetWeaponPosition(transform);
+            _currentWeapon = weapon;
+
+            if (_currentWeapon is RangeWeapon)
+            {
+                var rangeW = _currentWeapon as RangeWeapon;
+                rangeW.AmmoConsumed().Subscribe(_ => _hud.UpdateAmmo(rangeW.CurrentAmmo, rangeW.RemainingAmmo));
+            }
+            SetWeaponPosition(transform);
+        }    
     }
 
     private void SetWeaponPosition(Transform container)

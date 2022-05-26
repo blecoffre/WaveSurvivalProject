@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
@@ -11,13 +12,38 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private Transform _inventoryContainer = default;
 
     public ReactiveProperty<Weapon> CurrentSelectedWeapon = new ReactiveProperty<Weapon>();
+    private ReactiveProperty<int> _playerMoney = new ReactiveProperty<int>(0);
+    public IObservable<int> PlayerMoney => new ReadOnlyReactiveProperty<int>(_playerMoney, false);
+    private ReactiveProperty<int> _playerGain = new ReactiveProperty<int>(0);
+    public IObservable<int> PlayerGain => new ReadOnlyReactiveProperty<int>(_playerGain, false);
 
     [Inject] private readonly WeaponFactory _weaponFactory;
+
+    [Inject] private PlayerPortraitInfos _moneyView = default;
+
+#if UNITY_EDITOR
+    #region Debug
+    [Inject] protected DebugController _debug;
+    private bool _debugOpened = false;
+    #endregion
+#endif
 
     [Inject]
     private void TakeStartingKit(StarterKit kit)
     {
-        InstantiateWeapons(kit.GetStartingWeapons());
+        if(kit != null)
+        {
+            InstantiateWeapons(kit.GetStartingWeapons());
+        }
+    }
+
+    private void Start()
+    {
+#if UNITY_EDITOR
+        _debug.WindowIsVisible.Subscribe(x => _debugOpened = x);
+        _debug.AddMoneyToPlayer.Subscribe(x => AddMoney(x));
+#endif
+
     }
 
     private void InstantiateWeapons(Weapon[] weapons)
@@ -42,6 +68,26 @@ public class PlayerInventory : MonoBehaviour
 
     private void SetCurrentWeapon(int index)
     {
-        CurrentSelectedWeapon.Value = _weapons[index];
+        if(_weapons.Count > index)
+        {
+            CurrentSelectedWeapon.Value = _weapons[index];
+        }
+    }
+
+    private void AddMoney(int gain)
+    {
+        _playerGain.SetValueAndForceNotify(gain);
+        AddToWallet(gain);
+        UpdateMoneyView(gain);
+    }
+
+    private void AddToWallet(int gain)
+    {
+        _playerMoney.SetValueAndForceNotify(_playerMoney.Value + gain);
+    }
+
+    private void UpdateMoneyView(int gain)
+    {
+        _moneyView.UpdateMoney(_playerMoney.Value);
     }
 }

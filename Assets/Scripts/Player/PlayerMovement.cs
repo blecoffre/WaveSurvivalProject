@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody _rigidbody = default;
 
     [Inject] private PlayerMovementData _movementData = default;
-    [Inject] private CharacterController _characterController = default;
 
     private ReactiveProperty<float> _walkSpeed;
     private ReactiveProperty<float> _runSpeed;
@@ -24,17 +23,16 @@ public class PlayerMovement : MonoBehaviour
     private float _gravity = -30.0f;
     private Vector3 _verticalVelocity = Vector3.zero;   
     private bool _isGrounded = default;
-    public Vector2 HorizontalInput;
+    public Vector2 Input;
     private bool _jump = false;
 
     private static int ANIMATOR_PARAM_WALK_SPEED =
         Animator.StringToHash("walkSpeed");
 
     [Inject]
-    private void Init(PlayerMovementData movementData, CharacterController characterController)
+    private void Init(PlayerMovementData movementData)
     {
         _movementData = movementData;
-        _characterController = characterController;
 
         _walkSpeed = _movementData.GetWalkSpeed();
         _runSpeed = _movementData.GetRunSpeed();
@@ -53,8 +51,7 @@ public class PlayerMovement : MonoBehaviour
             _verticalVelocity.y = 0;
         }
 
-        horizontalVelocity = (transform.right * HorizontalInput.x + transform.forward * HorizontalInput.y) * _currentSpeed;
-        _characterController.Move(horizontalVelocity * Time.deltaTime);
+        //horizontalVelocity = (transform.right * Input.x + transform.forward * Input.y) * _currentSpeed;
 
         if (_jump && _isGrounded)
         {
@@ -62,8 +59,23 @@ public class PlayerMovement : MonoBehaviour
             _jump = false;
         }
 
-        _verticalVelocity.y += _gravity * Time.deltaTime;
-        _characterController.Move(_verticalVelocity * Time.deltaTime);
+        //_verticalVelocity.y += _gravity * Time.deltaTime;
+
+        //Debug.Log(horizontalVelocity.magnitude);
+        //if(horizontalVelocity.magnitude > 0)
+        //{
+        //    horizontalVelocity.Normalize();
+        //    horizontalVelocity *= _currentSpeed * Time.deltaTime;
+        //    transform.Translate(horizontalVelocity, Space.World);
+        //}
+
+        //float velocityZ = Vector3.Dot(horizontalVelocity.normalized, transform.forward);
+        //float velocityX = Vector3.Dot(horizontalVelocity.normalized, transform.right);
+        //_animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
+        //_animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
+
+        _animator.SetFloat("VelocityZ", Input.y, 0.1f, Time.deltaTime);
+        _animator.SetFloat("VelocityX", Input.x, 0.1f, Time.deltaTime);
     }
 
     public void OnJumpPressed()
