@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0e090b3f8660094fb375ff515afba55, type: 3}
-  m_Name: PlayerJumpVelocity
+  m_Name: PlayerAirMultiplier
   m_EditorClassIdentifier: 
-  InitialeValue: 3.5
+  InitialeValue: 0.4

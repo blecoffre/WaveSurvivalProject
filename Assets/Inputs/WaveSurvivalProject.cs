@@ -302,7 +302,7 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d1c09033-6c44-41ae-924f-db148bc4ad28"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",

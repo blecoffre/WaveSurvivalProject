@@ -7,6 +7,7 @@ using WeWillSurvive;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private Transform _cameraRoot;
     [Inject] private WaveSurvivalProject.PlayerActions _playerControls = default;
 
     [Inject] private WeWillSurvive.PlayerMovement _playerMovement = default;

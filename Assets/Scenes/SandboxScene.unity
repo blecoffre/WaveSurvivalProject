@@ -1800,7 +1800,7 @@ GameObject:
   - component: {fileID: 552491262}
   - component: {fileID: 552491261}
   - component: {fileID: 552491264}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2656,6 +2656,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4993360198004636, guid: aceeed3aafacea940a96fea2c9c476eb, type: 3}
   m_PrefabInstance: {fileID: 821663298}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &843178972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 843178973}
+  m_Layer: 0
+  m_Name: CameraRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &843178973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843178972}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.004, y: 0.094, z: 0.169}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4252355813845542}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &870681182
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4170,7 +4200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361128350}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.006, z: 0}
+  m_LocalPosition: {x: 0, y: -0.022, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4851320017752218}
@@ -5324,9 +5354,9 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &1730475085
 GameObject:
   m_ObjectHideFlags: 0
@@ -6988,6 +7018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _aimLayer: {fileID: 1163856426}
+  _cameraRoot: {fileID: 843178973}
   Mouse: {x: 0, y: 0}
 --- !u!114 &1071943106036225
 MonoBehaviour:
@@ -7006,7 +7037,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _animator: {fileID: 95476127893679096}
-  _rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 1729635156}
   Input: {x: 0, y: 0}
 --- !u!114 &1071943106036226
 MonoBehaviour:
@@ -7020,6 +7051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7766041df0502394aaa50a43d69fc005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cameraRoot: {fileID: 0}
 --- !u!114 &1071943106036227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8393,6 +8425,7 @@ Transform:
   - {fileID: 4866284130412812}
   - {fileID: 4542923144190818}
   - {fileID: 4415281684918562}
+  - {fileID: 843178973}
   m_Father: {fileID: 4830552344543582}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

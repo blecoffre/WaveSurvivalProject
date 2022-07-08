@@ -18,18 +18,21 @@ namespace WeWillSurvive
 
         private ReactiveProperty<float> _walkSpeed;
         private ReactiveProperty<float> _runSpeed;
-        private ReactiveProperty<float> _jumpVelocity;
+        private ReactiveProperty<float> _jumpForce;
+        private ReactiveProperty<float> _animationBlendSpeed;
+        private ReactiveProperty<float> _groundDrag;
+        private ReactiveProperty<float> _airMultiplier;
 
         private float _currentSpeed = 0.0f;
-        Vector3 horizontalVelocity = Vector3.zero;
+        private int _xVelHash;
+        private int _yVelHash;
+        private Vector2 _horizontalVelocity;
         private float _gravity = -30.0f;
-        private Vector3 _verticalVelocity = Vector3.zero;
-        private bool _isGrounded = default;
+        private ReactiveProperty<bool> _isGrounded = new ReactiveProperty<bool>(false);
         public Vector2 Input;
-        private bool _jump = false;
+        private bool _isJumping = false;
 
-        private static int ANIMATOR_PARAM_WALK_SPEED =
-            Animator.StringToHash("walkSpeed");
+        private Vector3 _moveDirection;
 
         [Inject]
         private void Init(PlayerMovementData movementData)
@@ -38,56 +41,96 @@ namespace WeWillSurvive
 
             _walkSpeed = _movementData.GetWalkSpeed();
             _runSpeed = _movementData.GetRunSpeed();
-            _jumpVelocity = _movementData.GetJumpVelocity();
+            _jumpForce = _movementData.GetJumpVelocity();
+            _animationBlendSpeed = _movementData.GetAnimationBlendSpeed();
+            _groundDrag = _movementData.GetGroundDrag();
+            _airMultiplier = _movementData.GetAirMultiplier();
 
             _currentSpeed = _walkSpeed.Value;
 
-            Observable.EveryUpdate().Subscribe(_ => Move());
+            _xVelHash = Animator.StringToHash("VelocityX");
+            _yVelHash = Animator.StringToHash("VelocityY");
+
+            Observable.EveryFixedUpdate().Subscribe(_ => Move());
+            //Observable.EveryUpdate().Subscribe(_ => SpeedControl());
+
+            _isGrounded.Subscribe(x =>
+            {
+                if(x is true)
+                {
+                    _isJumping = false;
+                }
+            });
         }
 
         private void Move()
         {
-            _isGrounded = Physics.CheckSphere(_feet.position, 0.1f, _groundMask);
-            if (_isGrounded)
+            if (_animator == null) return;
+
+
+            _isGrounded.Value = Physics.CheckSphere(_feet.position, 0.1f, _groundMask);
+
+            if (_isGrounded.Value)
             {
-                _verticalVelocity.y = 0;
+                _rigidbody.drag = _groundDrag.Value;
+            }
+            else
+            {
+                _rigidbody.drag = 0;
             }
 
-            //horizontalVelocity = (transform.right * Input.x + transform.forward * Input.y) * _currentSpeed;
+            _moveDirection = transform.forward * Input.y + transform.right * Input.x;
 
-            if (_jump && _isGrounded)
+            _horizontalVelocity.x = Mathf.Lerp(_horizontalVelocity.x, Input.x * _currentSpeed, _animationBlendSpeed.Value * Time.fixedDeltaTime);
+            _horizontalVelocity.y = Mathf.Lerp(_horizontalVelocity.y, Input.y * _currentSpeed, _animationBlendSpeed.Value * Time.fixedDeltaTime);
+
+            var xDifference = _horizontalVelocity.x - _rigidbody.velocity.x;
+            var zDifference = _horizontalVelocity.y - _rigidbody.velocity.z;
+
+            if (_isGrounded.Value)
             {
-                _verticalVelocity.y = Mathf.Sqrt(-2f * _jumpVelocity.Value * _gravity);
-                _jump = false;
+                _rigidbody.AddForce(_moveDirection.normalized * _currentSpeed, ForceMode.Force);
+            }
+            else if (!_isGrounded.Value)
+            {
+                _rigidbody.AddForce(_moveDirection.normalized * _currentSpeed * _airMultiplier.Value, ForceMode.Force);
             }
 
-            //_verticalVelocity.y += _gravity * Time.deltaTime;
-
-            //Debug.Log(horizontalVelocity.magnitude);
-            //if(horizontalVelocity.magnitude > 0)
-            //{
-            //    horizontalVelocity.Normalize();
-            //    horizontalVelocity *= _currentSpeed * Time.deltaTime;
-            //    transform.Translate(horizontalVelocity, Space.World);
-            //}
-
-            //float velocityZ = Vector3.Dot(horizontalVelocity.normalized, transform.forward);
-            //float velocityX = Vector3.Dot(horizontalVelocity.normalized, transform.right);
-            //_animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
-            //_animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
+            _animator.SetFloat(_xVelHash, _horizontalVelocity.x);
+            _animator.SetFloat(_yVelHash, _horizontalVelocity.y);
 
             _animator.SetFloat("VelocityZ", Input.y, 0.1f, Time.deltaTime);
             _animator.SetFloat("VelocityX", Input.x, 0.1f, Time.deltaTime);
         }
 
+        private void SpeedControl()
+        {
+            Vector3 flatVel = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
+            Debug.Log("FlatVel " + flatVel.magnitude);
+
+            // limit velocity if needed
+            if (flatVel.magnitude > _currentSpeed)
+            {
+                Debug.Log("TooFast");
+                Vector3 limitedVel = flatVel.normalized * _currentSpeed;
+                _rigidbody.velocity = new Vector3(limitedVel.x, _rigidbody.velocity.y, limitedVel.z);
+            }
+        }
+
         public void OnJumpPressed()
         {
-            _jump = true;
+            if(_isJumping == false)
+            {
+                _isJumping = true;
+                _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
+
+                _rigidbody.AddForce(transform.up * _jumpForce.Value, ForceMode.Impulse);
+            }
         }
 
         public void Sprint()
         {
-            if (_isGrounded)
+            if (_isGrounded.Value)
             {
                 _currentSpeed = _runSpeed.Value;
             }
@@ -97,11 +140,5 @@ namespace WeWillSurvive
         {
             _currentSpeed = _walkSpeed.Value;
         }
-
-        //private void LateUpdate()
-        //{
-        //    float speed = _rigidbody.velocity.magnitude;
-        //    this._animator.SetFloat(ANIMATOR_PARAM_WALK_SPEED, speed);
-        //}
     }
 }
