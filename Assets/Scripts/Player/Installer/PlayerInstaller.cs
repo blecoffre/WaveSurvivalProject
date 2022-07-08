@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using Zenject;
+using WeWillSurvive;
 
 public class PlayerInstaller : MonoInstaller
 {
@@ -8,8 +9,8 @@ public class PlayerInstaller : MonoInstaller
     {
         Container.Bind<PlayerController>().FromComponentOn(gameObject).AsSingle();
 
-        Container.Bind<PlayerMovement>().FromComponentOn(gameObject).AsSingle();
-        Container.Bind<PlayerMovementData>().FromScriptableObjectResource("PlayerData/PlayerMovement/PlayerMovementData").WhenInjectedInto<PlayerMovement>();
+        Container.Bind<WeWillSurvive.PlayerMovement>().FromComponentOn(gameObject).AsSingle();
+        Container.Bind<PlayerMovementData>().FromScriptableObjectResource("PlayerData/PlayerMovement/PlayerMovementData").WhenInjectedInto<WeWillSurvive.PlayerMovement>();
         Container.Bind<CharacterController>().FromComponentOn(gameObject).AsSingle();
 
         Container.Bind<Camera>().FromComponentInChildren().AsSingle();

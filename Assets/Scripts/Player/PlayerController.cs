@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using Zenject;
+using WeWillSurvive;
 
 public class PlayerController : MonoBehaviour
 {
     [Inject] private WaveSurvivalProject.PlayerActions _playerControls = default;
 
-    [Inject] private PlayerMovement _playerMovement = default;
+    [Inject] private WeWillSurvive.PlayerMovement _playerMovement = default;
     [Inject] private PlayerLook _playerLook = default;
     [Inject] private PlayerWeapon _playerWeapon = default;
     [Inject] private PlayerInventory _playerInventory = default;

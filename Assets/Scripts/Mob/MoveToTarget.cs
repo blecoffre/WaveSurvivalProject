@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using WeWillSurvive;
 
 public class MoveToTarget : MonoBehaviour
 {

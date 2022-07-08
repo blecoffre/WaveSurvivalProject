@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class Player : MonoBehaviour
+namespace WeWillSurvive
 {
-    //[Inject] private FloatVariable _playerHP = default;
-
-    private void Start()
+    public class Player : MonoBehaviour
     {
-        //Debug.Log(gameObject.name + "HP : " + _playerHP.RuntimeValue);
+        //[Inject] private FloatVariable _playerHP = default;
+
+        private void Start()
+        {
+            //Debug.Log(gameObject.name + "HP : " + _playerHP.RuntimeValue);
+        }
     }
 }
