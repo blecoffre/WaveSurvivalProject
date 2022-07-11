@@ -99,8 +99,8 @@ namespace WeWillSurvive
             _animator.SetFloat(_xVelHash, _horizontalVelocity.x);
             _animator.SetFloat(_yVelHash, _horizontalVelocity.y);
 
-            _animator.SetFloat("VelocityZ", Input.y, 0.1f, Time.deltaTime);
-            _animator.SetFloat("VelocityX", Input.x, 0.1f, Time.deltaTime);
+            _animator.SetFloat("InputY", Input.y, 0.1f, Time.deltaTime);
+            _animator.SetFloat("InputX", Input.x, 0.1f, Time.deltaTime);
         }
 
         private void SpeedControl()

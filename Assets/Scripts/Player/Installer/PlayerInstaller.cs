@@ -13,7 +13,7 @@ public class PlayerInstaller : MonoInstaller
         Container.Bind<PlayerMovementData>().FromScriptableObjectResource("PlayerData/PlayerMovement/PlayerMovementData").WhenInjectedInto<WeWillSurvive.PlayerMovement>();
         Container.Bind<CharacterController>().FromComponentOn(gameObject).AsSingle();
 
-        Container.Bind<Camera>().FromComponentInChildren().AsSingle();
+        //Container.Bind<Camera>().FromComponentInChildren().AsSingle();
         Container.Bind<PlayerLook>().FromComponentOn(gameObject).AsSingle();
         Container.Bind<PlayerLookData>().FromScriptableObjectResource("PlayerData/PlayerLook/PlayerLookData").WhenInjectedInto<PlayerLook>();
 

@@ -33,7 +33,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if(kit != null)
         {
-            InstantiateWeapons(kit.GetStartingWeapons());
+            //InstantiateWeapons(kit.GetStartingWeapons());
         }
     }
 

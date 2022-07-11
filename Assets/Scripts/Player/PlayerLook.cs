@@ -37,12 +37,12 @@ public class PlayerLook : MonoBehaviour
     }
 
     [Inject]
-    private void Init(PlayerLookData data, Camera camera)
+    private void Init(PlayerLookData data/*, Camera camera*/)
     {
         _sensitivityX = data.GetXSensitivity();
         _sensitivityY = data.GetYSensitivity();
 
-        _playerCamera = camera;
+        //_playerCamera = camera;
     }
 
     private void LateUpdate()

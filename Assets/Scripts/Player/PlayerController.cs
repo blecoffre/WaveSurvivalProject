@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [Inject] private WaveSurvivalProject.PlayerActions _playerControls = default;
 
     [Inject] private WeWillSurvive.PlayerMovement _playerMovement = default;
-    [Inject] private PlayerLook _playerLook = default;
+    //[Inject] private PlayerLook _playerLook = default;
     [Inject] private PlayerWeapon _playerWeapon = default;
     [Inject] private PlayerInventory _playerInventory = default;
 
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         _playerControls.Move.performed += ctx => _playerMovement.Input = ctx.ReadValue<Vector2>();
         _playerControls.Jump.performed += _ => _playerMovement.OnJumpPressed();
-        _playerControls.Look.performed += ctx => _playerLook.Mouse = ctx.ReadValue<Vector2>();
+        //_playerControls.Look.performed += ctx => _playerLook.Mouse = ctx.ReadValue<Vector2>();
         _playerControls.Fire.performed += _ => _playerWeapon.Attack();
         _playerControls.Fire.canceled += _ => _playerWeapon.StopAttack();
         _playerControls.Sprint.performed += _ => _playerMovement.Sprint();
