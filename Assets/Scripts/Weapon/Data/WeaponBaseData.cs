@@ -9,6 +9,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Weapon/BaseData", fileName = "WeaponData")]
 public class WeaponBaseData : ScriptableObject
 {
+    [SerializeField] private string _weaponName;
+    public string WeaponName => _weaponName;
+
     #region Shooting relative
     [SerializeField] private FloatVariable _range;
     [SerializeField] private FloatVariable _damage;

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fcb9e85e9a4bde4fbd9cee12279a34e, type: 3}
-  m_Name: PlayerStarterKit
+  m_Script: {fileID: 11500000, guid: e0e090b3f8660094fb375ff515afba55, type: 3}
+  m_Name: Shotgun_BulletSpread
   m_EditorClassIdentifier: 
-  _startingWeapons: []
+  InitialeValue: 7

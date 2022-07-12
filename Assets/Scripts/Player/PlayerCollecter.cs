@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 public class PlayerCollecter : MonoBehaviour
 {
     private ReactiveProperty<Collectable> _collectable = default;
+
+    [Inject] private PlayerInventory _playerInventory = default;
 
     private void Start()
     {
@@ -15,7 +18,7 @@ public class PlayerCollecter : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log(collision.gameObject.name);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,11 +33,22 @@ public class PlayerCollecter : MonoBehaviour
 
     private void ProcessCollect()
     {
-        if (_collectable.Value != null)
+        switch (_collectable.Value)
         {
-            _collectable.Value.DestroyCollectable();
-            _collectable.Dispose();
-            _collectable = null;
+            case WeaponPickup wp:
+                CollectWeapon(wp.WeaponData);
+                break;
         }
+        //if (_collectable.Value != null)
+        //{
+        //    _collectable.Value.DestroyCollectable();
+        //    _collectable.Dispose();
+        //    _collectable = null;
+        //}
+    }
+
+    private void CollectWeapon(Weapon _data)
+    {
+        _playerInventory.CollectedWeapon.Value = _data;
     }
 }

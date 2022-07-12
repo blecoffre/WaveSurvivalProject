@@ -48,8 +48,8 @@ namespace WeWillSurvive
 
             _currentSpeed = _walkSpeed.Value;
 
-            _xVelHash = Animator.StringToHash("VelocityX");
-            _yVelHash = Animator.StringToHash("VelocityY");
+            _xVelHash = Animator.StringToHash("InputX");
+            _yVelHash = Animator.StringToHash("InputY");
 
             Observable.EveryFixedUpdate().Subscribe(_ => Move());
             //Observable.EveryUpdate().Subscribe(_ => SpeedControl());
@@ -96,8 +96,8 @@ namespace WeWillSurvive
                 _rigidbody.AddForce(_moveDirection.normalized * _currentSpeed * _airMultiplier.Value, ForceMode.Force);
             }
 
-            _animator.SetFloat(_xVelHash, _horizontalVelocity.x);
-            _animator.SetFloat(_yVelHash, _horizontalVelocity.y);
+            //_animator.SetFloat(_xVelHash, _horizontalVelocity.x);
+            //_animator.SetFloat(_yVelHash, _horizontalVelocity.y);
 
             _animator.SetFloat("InputY", Input.y, 0.1f, Time.deltaTime);
             _animator.SetFloat("InputX", Input.x, 0.1f, Time.deltaTime);

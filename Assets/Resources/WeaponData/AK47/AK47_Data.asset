@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155b3193cea0d9847b217aec466615eb, type: 3}
   m_Name: AK47_Data
   m_EditorClassIdentifier: 
+  _weaponName: AK47
   _range: {fileID: 11400000, guid: 0c5cd6650c50f9841b61fac89dc57ef6, type: 2}
   _damage: {fileID: 11400000, guid: d22b57eb4698e584e999408ea87b12c3, type: 2}
   _fireRate: {fileID: 11400000, guid: 4f02495cfda45004ba304241b9e873a4, type: 2}

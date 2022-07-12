@@ -10,7 +10,20 @@ public class PlayerWeapon : MonoBehaviour
     private Weapon _currentWeapon = default;
     [Inject] private PlayerWeaponHUD _hud = default;
 
-    [SerializeField] private Animator _animator = default;
+    [SerializeField] private Transform _weaponParent = default;
+    [SerializeField] private Rig _handIK = default;
+
+    [SerializeField] private Animator _rigController = default;
+
+    private void Awake()
+    {
+
+        if (_currentWeapon is null)
+        {
+            _handIK.weight = 0.0f;
+        }
+
+    }
 
     public void SetCurrentWeapon(Weapon weapon)
     {
@@ -23,15 +36,9 @@ public class PlayerWeapon : MonoBehaviour
                 var rangeW = _currentWeapon as RangeWeapon;
                 rangeW.AmmoConsumed().Subscribe(_ => _hud.UpdateAmmo(rangeW.CurrentAmmo, rangeW.RemainingAmmo));
             }
-            SetWeaponPosition(transform);
-        }    
-    }
-
-    private void SetWeaponPosition(Transform container)
-    {
-        _currentWeapon.transform.position = container.position;
-        _currentWeapon.transform.rotation = container.rotation;
-        _currentWeapon.transform.localScale = container.localScale;
+            _handIK.weight = 1.0f;
+            _rigController.Play("Equip_" + _currentWeapon.Data.WeaponName);
+        }
     }
 
     public void Attack()

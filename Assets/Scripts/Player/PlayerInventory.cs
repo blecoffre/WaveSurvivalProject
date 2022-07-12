@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using Zenject;
+using System.Linq;
+using Cysharp.Threading.Tasks;
 
 public class PlayerInventory : MonoBehaviour
 {
     private List<Weapon> _weapons =  new List<Weapon>();
-    [SerializeField] private Transform _playerHand = default;
+    [SerializeField] private Transform _weaponBag = default;
     [SerializeField] private Transform _inventoryContainer = default;
 
     public ReactiveProperty<Weapon> CurrentSelectedWeapon = new ReactiveProperty<Weapon>();
@@ -16,6 +18,8 @@ public class PlayerInventory : MonoBehaviour
     public IObservable<int> PlayerMoney => new ReadOnlyReactiveProperty<int>(_playerMoney, false);
     private ReactiveProperty<int> _playerGain = new ReactiveProperty<int>(0);
     public IObservable<int> PlayerGain => new ReadOnlyReactiveProperty<int>(_playerGain, false);
+
+    public ReactiveProperty<Weapon> CollectedWeapon = new ReactiveProperty<Weapon>();
 
     [Inject] private readonly WeaponFactory _weaponFactory;
 
@@ -33,7 +37,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if(kit != null)
         {
-            //InstantiateWeapons(kit.GetStartingWeapons());
+            InstantiateWeapons(kit.GetStartingWeapons());
         }
     }
 
@@ -44,6 +48,7 @@ public class PlayerInventory : MonoBehaviour
         _debug.AddMoneyToPlayer.Subscribe(x => AddMoney(x));
 #endif
 
+        CollectedWeapon.Skip(1).Subscribe(x => CollectWeapon(x).Forget());
     }
 
     private void InstantiateWeapons(Weapon[] weapons)
@@ -51,7 +56,9 @@ public class PlayerInventory : MonoBehaviour
         foreach(Weapon w in weapons)
         {
             var weapon = _weaponFactory.Create(w);
-            weapon.transform.SetParent(_playerHand);
+            weapon.transform.SetParent(_weaponBag);
+            weapon.transform.localPosition = Vector3.zero;
+            weapon.transform.localRotation = Quaternion.identity;
             _weapons.Add(weapon);
         }
     }
@@ -89,5 +96,12 @@ public class PlayerInventory : MonoBehaviour
     private void UpdateMoneyView(int gain)
     {
         _moneyView.UpdateMoney(_playerMoney.Value);
+    }
+
+    private async UniTask CollectWeapon(Weapon _data)
+    {
+        InstantiateWeapons(new Weapon[] { _data });
+        await UniTask.DelayFrame(5);
+        SetCurrentWeapon(_weapons.IndexOf(_weapons.FirstOrDefault(x => x.Data.WeaponName == _data.Data.WeaponName)));
     }
 }

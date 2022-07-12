@@ -10,6 +10,8 @@ public class Weapon : MonoBehaviour, IAttack, IWeapon
 {
     [SerializeField] protected Camera _camera = default;
     [SerializeField] protected WeaponBaseData _data = default;
+    public WeaponBaseData Data => _data;
+
 
     protected ReactiveProperty<bool> _attackPressed = new ReactiveProperty<bool>(false);
     protected IDisposable _attackDisposable = default;
@@ -59,6 +61,8 @@ public class Weapon : MonoBehaviour, IAttack, IWeapon
     //        return _container.Instantiate<Weapon>();
     //    }
     //}
+
+
 }
 
 public class WeaponFactory : PlaceholderFactory<UnityEngine.Object, Weapon>
@@ -79,7 +83,7 @@ public class CustomWeaponFactory : IFactory<IWeapon>
 
     public IWeapon Create()
     {
-        if(_weapon is RangeWeapon)
+        if (_weapon is RangeWeapon)
         {
             return _container.Instantiate<RangeWeapon>();
         }
