@@ -13,6 +13,7 @@ namespace WeWillSurvive
         [SerializeField] private LayerMask _groundMask = default;
         [SerializeField] private Animator _animator = default;
         [SerializeField] private Rigidbody _rigidbody = default;
+        [SerializeField] private Camera _camera = default;
 
         [Inject] private PlayerMovementData _movementData = default;
 
@@ -67,7 +68,6 @@ namespace WeWillSurvive
         {
             if (_animator == null) return;
 
-
             _isGrounded.Value = Physics.CheckSphere(_feet.position, 0.1f, _groundMask);
 
             if (_isGrounded.Value)
@@ -81,11 +81,14 @@ namespace WeWillSurvive
 
             _moveDirection = transform.forward * Input.y + transform.right * Input.x;
 
+            var truc = _moveDirection.normalized * _currentSpeed;
+            Debug.Log(_moveDirection.normalized * _currentSpeed);
+
             _horizontalVelocity.x = Mathf.Lerp(_horizontalVelocity.x, Input.x * _currentSpeed, _animationBlendSpeed.Value * Time.fixedDeltaTime);
             _horizontalVelocity.y = Mathf.Lerp(_horizontalVelocity.y, Input.y * _currentSpeed, _animationBlendSpeed.Value * Time.fixedDeltaTime);
 
-            var xDifference = _horizontalVelocity.x - _rigidbody.velocity.x;
-            var zDifference = _horizontalVelocity.y - _rigidbody.velocity.z;
+            //var xDifference = _horizontalVelocity.x - _rigidbody.velocity.x;
+            //var zDifference = _horizontalVelocity.y - _rigidbody.velocity.z;
 
             if (_isGrounded.Value)
             {
