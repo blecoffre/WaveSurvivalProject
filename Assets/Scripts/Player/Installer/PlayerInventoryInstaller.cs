@@ -8,7 +8,7 @@ public class PlayerInventoryInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<StarterKit>().FromInstance(_playerStarterKit).AsSingle();
-        Container.Bind<PlayerInventory>().FromComponentInChildren().AsSingle();
-        Container.Bind<PlayerInventoryFeedback>().FromComponentInChildren().AsSingle();
+        Container.Bind<PlayerInventoryController>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<PlayerInventoryFeedback>().FromComponentInHierarchy().AsSingle();
     }
 }

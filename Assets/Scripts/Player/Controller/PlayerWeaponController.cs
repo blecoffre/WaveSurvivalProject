@@ -5,7 +5,7 @@ using Zenject;
 using UniRx;
 using UnityEngine.Animations.Rigging;
 
-public class PlayerWeapon : MonoBehaviour
+public class PlayerWeaponController : MonoBehaviour
 {
     private Weapon _currentWeapon = default;
     [Inject] private PlayerWeaponHUD _hud = default;
@@ -43,12 +43,14 @@ public class PlayerWeapon : MonoBehaviour
 
     public void Attack()
     {
-        _currentWeapon.Attack();
+        _currentWeapon?.Attack();
+        Debug.LogWarning("Start Attack No weapon attached to player");
     }
 
     public void StopAttack()
     {
-        _currentWeapon.StopAttack();
+        _currentWeapon?.StopAttack();
+        Debug.LogWarning("Stop Attack No weapon attached to player");
     }
 
     public void Reload()
@@ -57,5 +59,11 @@ public class PlayerWeapon : MonoBehaviour
         {
             _currentWeapon.GetComponent<IReloadable>().Reload();
         }
+    }
+
+    public void Holst()
+    {
+        bool isHolstered = _rigController.GetBool("HolstWeapon");
+        _rigController.SetBool("HolstWeapon", !isHolstered);
     }
 }

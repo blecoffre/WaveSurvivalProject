@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 196fcb7c39f532448a15a899181477a2, type: 3}
+  m_Name: _PlayerLookData
+  m_EditorClassIdentifier: 
+  _sensitivityX: {fileID: 11400000, guid: d907095cda7cde840ae57c52266f0978, type: 2}
+  _sensitivityY: {fileID: 11400000, guid: 29686c85bce25ed41b8a9f67a0de3c17, type: 2}
+  _playerInteractionDistance: {fileID: 11400000, guid: 5087c236c0d9397449c072812cf3e9a8, type: 2}

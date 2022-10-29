@@ -7,13 +7,13 @@ using WeWillSurvive;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Transform _cameraRoot;
     [Inject] private WaveSurvivalProject.PlayerActions _playerControls = default;
 
-    [Inject] private WeWillSurvive.PlayerMovement _playerMovement = default;
+    [Inject] private PlayerMovementController _playerMovement = default;
+    [Inject] private PlayerLookController _playerLook = default;
     //[Inject] private PlayerLook _playerLook = default;
-    [Inject] private PlayerWeapon _playerWeapon = default;
-    [Inject] private PlayerInventory _playerInventory = default;
+    [Inject] private PlayerWeaponController _playerWeapon = default;
+    [Inject] private PlayerInventoryController _playerInventory = default;
 
     
     private void Start()
@@ -26,12 +26,15 @@ public class PlayerController : MonoBehaviour
     {
         _playerControls.Move.performed += ctx => _playerMovement.Input = ctx.ReadValue<Vector2>();
         _playerControls.Jump.performed += _ => _playerMovement.OnJumpPressed();
-        //_playerControls.Look.performed += ctx => _playerLook.Mouse = ctx.ReadValue<Vector2>();
+        _playerControls.Look.performed += ctx => _playerLook.Mouse = ctx.ReadValue<Vector2>();
         _playerControls.Fire.performed += _ => _playerWeapon.Attack();
         _playerControls.Fire.canceled += _ => _playerWeapon.StopAttack();
         _playerControls.Sprint.performed += _ => _playerMovement.Sprint();
         _playerControls.Sprint.canceled += _ => _playerMovement.Walk();
         _playerControls.Reload.performed += _ => _playerWeapon.Reload();
+        _playerControls.HolstWeapon.performed += _ => _playerWeapon.Holst();
+        _playerControls.Aim.performed += _ => _playerLook.StartAim();
+        _playerControls.Aim.canceled += _ => _playerLook.StopAim();
     }
 
     private void BindEvents()

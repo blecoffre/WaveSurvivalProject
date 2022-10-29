@@ -7,7 +7,7 @@ using Zenject;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventoryController : MonoBehaviour
 {
     private List<Weapon> _weapons =  new List<Weapon>();
     [SerializeField] private Transform _weaponBag = default;

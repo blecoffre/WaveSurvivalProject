@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d871e5475fcb8fd40930d3cf9fe6c0a7, type: 3}
-  m_Name: PlayerMovementData
+  m_Name: _PlayerMovementData
   m_EditorClassIdentifier: 
   _playerWalkSpeed: {fileID: 11400000, guid: 3d6c836e3ea46974398ac7af59fd696d, type: 2}
   _playerRunSpeed: {fileID: 11400000, guid: e4d7a24f424374c4a8050493552bced7, type: 2}
@@ -18,3 +18,4 @@ MonoBehaviour:
   _animationBlendSpeed: {fileID: 11400000, guid: 0966a5c708f222348b38622bda19b1a4, type: 2}
   _groundDrag: {fileID: 11400000, guid: b4853e24ca0cb4e4393afbc2808fb6c1, type: 2}
   _airMultiplier: {fileID: 11400000, guid: b493dfa61ed0df543b0668097c928863, type: 2}
+  _rotationSpeed: {fileID: 11400000, guid: 579ffa73b30e15343bcad5ef8094b5b7, type: 2}

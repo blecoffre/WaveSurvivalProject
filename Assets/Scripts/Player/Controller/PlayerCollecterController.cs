@@ -4,11 +4,11 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-public class PlayerCollecter : MonoBehaviour
+public class PlayerCollecterController : MonoBehaviour
 {
     private ReactiveProperty<Collectable> _collectable = default;
 
-    [Inject] private PlayerInventory _playerInventory = default;
+    [Inject] private PlayerInventoryController _playerInventory = default;
 
     private void Start()
     {

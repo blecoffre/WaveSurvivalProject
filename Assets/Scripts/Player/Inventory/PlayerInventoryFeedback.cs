@@ -9,7 +9,7 @@ public class PlayerInventoryFeedback : MonoBehaviour
 {
     [SerializeField] private MMFeedbacks _moneyFeedback = default;
 
-    [Inject] private PlayerInventory _inventory = default;
+    [Inject] private PlayerInventoryController _inventory = default;
     [Inject] private PlayerPortraitInfos _moneyView = default;
 
     private void Start()
