@@ -10,6 +10,8 @@ public class PlayerInteractionController : MonoBehaviour
     private ReactiveProperty<float> _playerInteractionDistance;
     private Camera _mainCamera = default;
     private ReactiveProperty<IInteractable> _interactableObject = new ReactiveProperty<IInteractable>();
+    private RaycastHit _raycastHit;
+
 
     [Inject] private ContextDisplayController _contextDisplay = default;
 
@@ -34,14 +36,13 @@ public class PlayerInteractionController : MonoBehaviour
     private IInteractable RayInteractWithObjectOfInterest()
     {
         float dist = Vector3.Distance(_mainCamera.transform.position, _mainCamera.GetComponent<CinemachineBrain>().ActiveVirtualCamera.Follow.transform.position);
-        RaycastHit hit;
         Debug.DrawRay(_mainCamera.transform.position, _mainCamera.transform.forward, Color.red);
-        if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, _playerInteractionDistance.Value + dist))
+        if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out _raycastHit, _playerInteractionDistance.Value + dist))
         {
-            IInteractable interactable = hit.transform.GetComponent<IInteractable>();
+            IInteractable interactable = _raycastHit.transform.GetComponent<IInteractable>();
             if (interactable != null)
             {
-                Debug.Log(hit.transform.gameObject.name);
+                Debug.Log(_raycastHit.transform.gameObject.name);
             }
             return interactable;
         }
@@ -49,8 +50,8 @@ public class PlayerInteractionController : MonoBehaviour
         return null;
     }
 
-    private void DrawRay()
+    public void Interact()
     {
-
+        
     }
 }

@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseShop : MonoBehaviour
+public class BaseShop : MonoBehaviour, IOpenable, IClosable
 {
-    public virtual void Buy()
+    public virtual void Open()
     {
-
+#if UNITY_EDITOR
+        Debug.Log("Open Shop " + gameObject.name);
+#endif
     }
 
-    public virtual void Sell()
+    public virtual void Close()
     {
-
+#if UNITY_EDITOR
+        Debug.Log("Close Shop " + gameObject.name);
+#endif
     }
 }

@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     //[Inject] private PlayerLook _playerLook = default;
     [Inject] private PlayerWeaponController _playerWeapon = default;
     [Inject] private PlayerInventoryController _playerInventory = default;
-
+    [Inject] private PlayerInteractionController _playerIneraction = default;
     
     private void Start()
     {
@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
         _playerControls.HolstWeapon.performed += _ => _playerWeapon.Holst();
         _playerControls.Aim.performed += _ => _playerLook.StartAim();
         _playerControls.Aim.canceled += _ => _playerLook.StopAim();
+        _playerControls.Interact.performed += _ => _playerIneraction.Interact();
     }
 
     private void BindEvents()
