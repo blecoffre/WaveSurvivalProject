@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34332d204a5e8954fa82d02eb96e9678, type: 3}
+  m_Name: SandboxWeaponShop
+  m_EditorClassIdentifier: 
+  _shopName: Sandbox Weapon Shop
+  _shopView: {fileID: 8987381425715997241, guid: cba2f59a0a806de42bda4b3d0881c6a0, type: 3}

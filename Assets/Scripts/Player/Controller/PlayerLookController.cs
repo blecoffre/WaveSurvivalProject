@@ -34,6 +34,7 @@ public class PlayerLookController : MonoBehaviour
     private float _cinemachineTargetPitch;
     private const float _threshold = 0.01f;
 
+    [Inject] private ShopsManager _shopsManager = default;
 
 
     #region Debug Var
@@ -47,6 +48,16 @@ public class PlayerLookController : MonoBehaviour
 #if UNITY_EDITOR
         _debugActions.OpenDebug.performed += _ => _lockMovement = !_lockMovement;
 #endif
+
+        _shopsManager.OnOpenShop.Subscribe(_ =>
+        {
+            FreezeCameraMovement();
+        }).AddTo(gameObject);
+
+        _shopsManager.OnCloseShop.Subscribe(_ =>
+        {
+            UnFreezeCameraMovement();
+        }).AddTo(gameObject);
 
         _aimLayer.weight = 1.0f;
 
@@ -103,5 +114,15 @@ public class PlayerLookController : MonoBehaviour
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
+    }
+
+    public void FreezeCameraMovement()
+    {
+        _lockMovement = true;
+    }
+
+    public void UnFreezeCameraMovement()
+    {
+        _lockMovement = false;
     }
 }

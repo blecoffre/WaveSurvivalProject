@@ -13,7 +13,6 @@ public class GameMainInstaller : MonoInstaller
 
         //Container.Bind<GameEvent>().WithId("PlayerHPChangedEvent").FromScriptableObjectResource("GameEvent/PlayerHPChanged").AsTransient();
         Container.Bind<FloatVariable>().FromScriptableObjectResource("EnemyData/EnemyHP").WhenInjectedInto<Enemy>();
-
         Container.Bind<ContextDisplayController>().FromComponentInHierarchy().AsSingle();
     }
 

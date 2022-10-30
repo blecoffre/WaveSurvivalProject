@@ -6,9 +6,10 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-public class HideCursorOnRun : MonoBehaviour
+public class CursorController : MonoBehaviour
 {
     [Inject] private DebugController _debugController = default;
+    [Inject] private ShopsManager _shopsManager = default;
 
     private void Start()
     {
@@ -16,6 +17,16 @@ public class HideCursorOnRun : MonoBehaviour
 #if UNITY_EDITOR
         _debugController.WindowIsVisible.Subscribe(x => CursorState(x));
 #endif
+
+        _shopsManager.OnOpenShop.Subscribe(_ =>
+        {
+            CursorState(true);
+        });
+
+        _shopsManager.OnCloseShop.Subscribe(_ =>
+        {
+            CursorState(false);
+        });
     }
 
     private void CursorState(bool isVisible)

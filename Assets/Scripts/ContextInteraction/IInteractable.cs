@@ -1,8 +1,10 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public interface IInteractable
 {
-    public void Interact();
+    public Task<bool> Interact();
 }

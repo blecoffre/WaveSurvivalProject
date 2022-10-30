@@ -50,8 +50,16 @@ public class PlayerInteractionController : MonoBehaviour
         return null;
     }
 
-    public void Interact()
+    public async void Interact()
     {
-        
+        if (_interactableObject != null)
+        {
+            bool hasInterracted = await _interactableObject.Value.Interact();
+
+            if (hasInterracted)
+            {
+                _contextDisplay.ShowInteractionTip(false);
+            }
+        }
     }
 }
