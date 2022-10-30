@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 580419d76ae20d742b26bb78160a7189, type: 3}
+  m_Name: MonoRifleSlotData
+  m_EditorClassIdentifier: 
+  _name: {fileID: 11400000, guid: 0783e7c61bfa3074695208637d1ce11a, type: 2}
+  _baseData: {fileID: 11400000, guid: b586b22508fe27c4f8fd2a8e602cc599, type: 2}
+  _price: {fileID: 11400000, guid: 0135d8bf0f3a08648a9e160e0085ee75, type: 2}
+  _slotIcon: {fileID: 21300000, guid: c256959d280a74b4daf95dc8717a29da, type: 3}

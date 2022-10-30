@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "ScriptableValue/IntVariable", fileName = "IntVariable")]
 public class IntVariable : ScriptableObject, ISerializationCallbackReceiver
 {
     [SerializeField] private int InitialeValue;

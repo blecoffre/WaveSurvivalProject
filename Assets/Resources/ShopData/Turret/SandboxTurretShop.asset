@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54e63c6f79a81d1448461221dfdef3fc, type: 3}
+  m_Name: SandboxTurretShop
+  m_EditorClassIdentifier: 
+  _shopName: Sandbox turret shop
+  _shopView: {fileID: 2421467537255172957, guid: 7202558eda16eb045b9f67c8c7b288c3, type: 3}
+  _slotDatas:
+  - {fileID: 11400000, guid: a307fcdac82387045bd2e1627eca5e3f, type: 2}

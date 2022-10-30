@@ -15,7 +15,7 @@ public class BaseShopView : MonoBehaviour, IOpenable, IClosable
 
     [Inject] private ShopsManager _shopsManager = default;
 
-    public void Initialize(BaseShopDatas shopDatas)
+    public virtual void Initialize(BaseShopDatas shopDatas)
     {
         _title.SetText(shopDatas.ShopName);
         _closeShopButton.onClick.AddListener(() => TryCloseShop());

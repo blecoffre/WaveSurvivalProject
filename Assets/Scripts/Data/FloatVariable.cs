@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "ScriptableValue/FloatVariable", fileName = "FloatVariable")]
 public class FloatVariable : ScriptableObject, ISerializationCallbackReceiver
 {
     [SerializeField] private float InitialeValue;

@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 8987381425715997190}
   - component: {fileID: 3632673414846759110}
   m_Layer: 5
-  m_Name: SandboxWeaponShopPrefab
+  m_Name: SandboxWeaponShopViewPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
