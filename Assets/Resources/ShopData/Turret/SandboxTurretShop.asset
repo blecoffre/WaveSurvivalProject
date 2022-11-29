@@ -15,4 +15,4 @@ MonoBehaviour:
   _shopName: Sandbox turret shop
   _shopView: {fileID: 2421467537255172957, guid: 7202558eda16eb045b9f67c8c7b288c3, type: 3}
   _slotDatas:
-  - {fileID: 11400000, guid: a307fcdac82387045bd2e1627eca5e3f, type: 2}
+  - {fileID: 11400000, guid: bbc19d62d9b622d4dac8312ba3ca7968, type: 2}

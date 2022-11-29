@@ -15,6 +15,13 @@ public class ShopsManager : IInitializable
     private Subject<BaseShopDatas> _onOpenShop = new Subject<BaseShopDatas>();
     private Subject<BaseShopView> _onCloseShop = new Subject<BaseShopView>();
 
+    private SignalBus _signalBus;
+    public ShopsManager(SignalBus signalBus)
+    {
+        _signalBus = signalBus;
+        _signalBus.Subscribe<ITryBuySignal>(x => TryBuy(x.Data));
+    }
+
     public void Initialize()
     {
         _currentShopInstance = null;
@@ -41,5 +48,11 @@ public class ShopsManager : IInitializable
             view.Close();
             _onCloseShop.OnNext(view);
         }
+    }
+
+    private void TryBuy(BaseShopSlotData data)
+    {
+        //Add check for currency, inventory cap etc..
+        _signalBus.AbstractFire(new ItemBoughtSignal { Data = data });
     }
 }

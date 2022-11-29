@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Shops/TurretShopDatas", fileName = "TurretShopDatas")]
 public class TurretShopDatas : BaseShopDatas
 {
-    [SerializeField] private BaseTurretShopSlotData[] _slotDatas = default;
+    [SerializeField] private TurretShopSlotData[] _slotDatas = default;
 
-    public BaseTurretShopSlotData[] SlotDatas => _slotDatas;
+    public TurretShopSlotData[] SlotDatas => _slotDatas;
 
     private TurretShopView _shopUI = default;
 

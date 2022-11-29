@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
         _playerControls.Aim.performed += _ => _playerLook.StartAim();
         _playerControls.Aim.canceled += _ => _playerLook.StopAim();
         _playerControls.Interact.performed += _ => _playerIneraction.Interact();
+        _playerControls.PlaceTurret.performed += _ => _playerInventory.PlaceTurretOnGround();
     }
 
     private void BindEvents()

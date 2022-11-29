@@ -9,7 +9,15 @@ public class ShopsController : MonoBehaviour
 {
     [SerializeField] private Transform _container = default;
 
-    [Inject] private ShopsManager _manager = default;
+    private ShopsManager _manager = default;
+    //private PlayerWallet _playerWallet = default;
+
+    [Inject]
+    private void Init(ShopsManager shopsManager/*, PlayerWallet playerWallet*/)
+    {
+        _manager = shopsManager;
+        //_playerWallet = playerWallet;
+    }
 
     private void Start()
     {
@@ -22,6 +30,8 @@ public class ShopsController : MonoBehaviour
         {
 
         });
+
+
     }
 
     private void OpenShop(BaseShopDatas shop)

@@ -25,6 +25,9 @@ public class PlayerInventoryController : MonoBehaviour
 
     [Inject] private PlayerPortraitInfos _moneyView = default;
 
+    private List<BaseTurretData> _turretOnInventory = new List<BaseTurretData>();
+    private int _turretQuantityLimit = 1;
+
 #if UNITY_EDITOR
     #region Debug
     [Inject] protected DebugController _debug;
@@ -33,12 +36,14 @@ public class PlayerInventoryController : MonoBehaviour
 #endif
 
     [Inject]
-    private void TakeStartingKit(StarterKit kit)
+    private void TakeStartingKit(StarterKit kit, SignalBus signalBus)
     {
         if(kit != null)
         {
             InstantiateWeapons(kit.GetStartingWeapons());
         }
+
+        signalBus.Subscribe<TryBuyItemSignal>(x => TryAddToInventory(x.Data));
     }
 
     private void Start()
@@ -103,5 +108,27 @@ public class PlayerInventoryController : MonoBehaviour
         InstantiateWeapons(new Weapon[] { _data });
         await UniTask.DelayFrame(5);
         SetCurrentWeapon(_weapons.IndexOf(_weapons.FirstOrDefault(x => x.Data.WeaponName == _data.Data.WeaponName)));
+    }
+
+    private void TryAddToInventory(BaseShopSlotData data)
+    {
+        if (data.GetType() == typeof(TurretShopSlotData))
+        {
+            TryAddTurretToInventory(data as TurretShopSlotData);
+        }
+    }
+
+    private void TryAddTurretToInventory(TurretShopSlotData data)
+    {
+        if(_turretOnInventory.Count < _turretQuantityLimit)
+        {
+            _turretOnInventory.Add(data.BaseData);
+        }
+    }
+
+    public void PlaceTurretOnGround()
+    {
+        BaseTurret toPlace = Instantiate(_turretOnInventory.First().Turret);
+        toPlace.transform.position = transform.parent.parent.position + (transform.parent.parent.forward * 2);
     }
 }

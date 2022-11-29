@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
-public class TurretShopSlotView : MonoBehaviour
+public class TurretShopSlotView : BaseShopSlotView
 {
-    [SerializeField] private TextMeshProUGUI _name = default;
-    [SerializeField] private Image _icon = default;
-    [SerializeField] private ButtonManager _buyButton = default;
-
-    public void Initialize(BaseTurretShopSlotData data)
+    public void SetItemData(TurretShopSlotData data)
     {
-        _name.SetText(data.Name.RuntimeValue.Value);
-        _icon.sprite = data.SlotIcon;
-        _buyButton.buttonText = data.Price.RuntimeValue.Value.ToString();
+        base.SetItemData(data);  
+    }
+
+    public override void BuyItem()
+    {
+        _signalBus.AbstractFire(new TryBuyItemSignal { Data = _data as TurretShopSlotData });
     }
 }

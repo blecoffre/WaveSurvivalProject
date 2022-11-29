@@ -7,5 +7,12 @@ public class ShopInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<ShopsManager>().AsSingle();
         Container.Bind<ShopsController>().FromComponentInChildren().AsSingle();
+
+
+        #region Signals
+        SignalBusInstaller.Install(Container);
+        Container.DeclareSignalWithInterfaces<TryBuyItemSignal>();
+        Container.DeclareSignalWithInterfaces<ItemBoughtSignal>();
+        #endregion
     }
 }

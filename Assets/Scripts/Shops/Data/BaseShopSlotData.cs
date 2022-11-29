@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/ShopSlot/BaseTurretShopSlotData", fileName = "BaseTurretShopSlotData")]
-public class BaseTurretShopSlotData : ScriptableObject
+public class BaseShopSlotData : ScriptableObject, IShopItem
 {
     [SerializeField] private StringVariable _name = default;
     [SerializeField] private BaseTurretData _baseData = default;
@@ -14,4 +13,9 @@ public class BaseTurretShopSlotData : ScriptableObject
     public BaseTurretData BaseData => _baseData;
     public IntVariable Price => _price;
     public Sprite SlotIcon => _slotIcon;
+
+    public void Buy()
+    {
+        throw new System.NotImplementedException();
+    }
 }

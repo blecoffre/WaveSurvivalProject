@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fbc845f1a06de64ab0c0df2e9c28778, type: 3}
   m_Name: MonoRifleData
   m_EditorClassIdentifier: 
+  _turret: {fileID: 4833574130228784709, guid: a0c5f01d5ff8bf14fa89ef68989c93da, type: 3}

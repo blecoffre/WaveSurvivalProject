@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 580419d76ae20d742b26bb78160a7189, type: 3}
-  m_Name: MonoRifleSlotData
+  m_Script: {fileID: 11500000, guid: 6d1a3e95fa1d8e740b9033357f4fe7f3, type: 3}
+  m_Name: MonoRifleShopSlotData
   m_EditorClassIdentifier: 
   _name: {fileID: 11400000, guid: 0783e7c61bfa3074695208637d1ce11a, type: 2}
   _baseData: {fileID: 11400000, guid: b586b22508fe27c4f8fd2a8e602cc599, type: 2}
