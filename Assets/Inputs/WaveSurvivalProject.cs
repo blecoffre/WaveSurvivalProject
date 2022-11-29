@@ -89,6 +89,14 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PlaceTurret"",
+                    ""type"": ""Button"",
+                    ""id"": ""5f96b1f6-4d97-433f-b1ac-af91a93118a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -375,6 +383,17 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9c4aac23-b87a-41d0-8225-cf87a9797f6f"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""PlaceTurret"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1010,6 +1029,7 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
         m_Player_HolstWeapon = m_Player.FindAction("HolstWeapon", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_PlaceTurret = m_Player.FindAction("PlaceTurret", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1083,6 +1103,7 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_HolstWeapon;
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_PlaceTurret;
     public struct PlayerActions
     {
         private @WaveSurvivalProject m_Wrapper;
@@ -1096,6 +1117,7 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
         public InputAction @HolstWeapon => m_Wrapper.m_Player_HolstWeapon;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @PlaceTurret => m_Wrapper.m_Player_PlaceTurret;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1132,6 +1154,9 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @PlaceTurret.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlaceTurret;
+                @PlaceTurret.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlaceTurret;
+                @PlaceTurret.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlaceTurret;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1163,6 +1188,9 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @PlaceTurret.started += instance.OnPlaceTurret;
+                @PlaceTurret.performed += instance.OnPlaceTurret;
+                @PlaceTurret.canceled += instance.OnPlaceTurret;
             }
         }
     }
@@ -1361,6 +1389,7 @@ public class @WaveSurvivalProject : IInputActionCollection, IDisposable
         void OnHolstWeapon(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnPlaceTurret(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
