@@ -4,7 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Hostile_AI
+  - AI
   layers:
   - Default
   - TransparentFX
@@ -14,25 +14,25 @@ TagManager:
   - UI
   - Ground
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PostProcessingVolumes
+  - EnvironmentRough
+  - EnvironmentDetail
+  - MovingPlatforms
+  - DynamicProps
+  - CharacterControllers
+  - CharacterFirstPerson
+  - CharacterExternal
+  - CharacterPhysics
+  - CharacterRagdoll
+  - CharacterNonColliding
+  - WieldablesFirstPerson
+  - WieldablesExternal
+  - TriggerZones
+  - InteractiveObjects
+  - Doors
+  - SmallDynamicObjects
+  - Effects
+  - AiVisibility
   - 
   - 
   - 
